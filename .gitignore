@@ -1,0 +1,6 @@
+__pycache__
+__pycache__/
+config.py
+mukam_bot.db
+env/
+venv/
