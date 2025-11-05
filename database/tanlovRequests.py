@@ -1,6 +1,14 @@
 import sqlite3
 
-def createTanlov(name:str, description:str, image:str, started_date:str, end_date:str, published:str):
+
+"""
+published
+JARAYONDA
+AMALDA
+TUGADI
+"""
+
+def createTanlovDb(name:str, description:str, image:str, started_date:str, end_date:str, published:str):
     try:
         with sqlite3.connect("mukam_bot.db") as db:
             cursor = db.cursor()

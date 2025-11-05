@@ -19,7 +19,6 @@ async def startCommand(message: Message, state: FSMContext):
     # await message.answer('Hello')
     tg_id = message.from_user.id 
     user = getUserByTg_id(tg_id=tg_id)
-    print("user", user, tg_id)
     if not user:
         await message.answer("Assalomu aleykum. Botimizga hush kelibsiz. Botdan to'liq foydalanishingiz uchun ro'yxatdan o'tishingiz kerak bo'ladi. \nTo'liq ismingizni kiriting:")
         await state.set_state(User.user_name)

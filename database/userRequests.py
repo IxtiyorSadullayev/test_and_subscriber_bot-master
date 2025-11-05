@@ -24,7 +24,6 @@ def getUserByTg_id(tg_id: int):
             user = cursor.execute("""
     SELECT * FROM user WHERE tg_id = ? 
 """, (tg_id, ))
-            # print("User db", user.fetchone())
             return dict(user.fetchone()) if user else False
     except Exception as e:
         print("Userni olishda hatolik mavjud.: ", e)
