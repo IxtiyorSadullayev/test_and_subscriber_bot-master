@@ -2,13 +2,15 @@ from aiogram import Router, F
 from aiogram.types import Message, ReplyKeyboardRemove, CallbackQuery
 from aiogram.fsm.context import FSMContext
 import re
-from states.adminState import Admin, AdminTanlov, TestCreate
+from states.adminState import Admin, AdminTanlov, TestCreate, AdminHisobotHolat
 
 # button 
-from helpers.buttons import yes_or_no
+from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tanlovlistBtns
+
 
 # db
-from database.tanlovRequests import createTanlovDb
+from database.tanlovRequests import createTanlovDb, getTanlovlar, getOneTanlov
+from database.testRequests import createTest, getTestToAdmin, getTestById
 
 admin = Router()
 
@@ -135,6 +137,7 @@ async def adminTest_test_file(message: Message, state: FSMContext):
         return
     test_file=message.document.file_id
     await state.update_data(test_file=test_file)
+    await state.update_data(file_type=message.document.file_name.split(".")[-1])
     await message.answer("Yaratmoqchi bo'lgan testingizda nechta savol mavjud?")
     await state.set_state(TestCreate.count_questions)
 
@@ -144,7 +147,7 @@ async def adminTest_test_file(message: Message, state: FSMContext):
 @admin.message(TestCreate.count_questions)
 async def adminTest_count_questions(message: Message, state: FSMContext):
     count_test=message.text
-    if len(count_test) ==0:
+    if len(count_test) ==0 or not count_test.isdigit():
         await message.answer("Yaratmoqchi bo'lgan testingizda nechta savol mavjud?")
         state.set_state(TestCreate.count_questions)
         return
@@ -162,18 +165,186 @@ async def adminTest_answers(message: Message, state: FSMContext):
     data = await state.get_data()
     count_questions = data.get("count_questions")
     matches = re.findall(r'(\d)([a-zA-Z])', answers)
+    if len(answers)==0:
+        await message.answer("""Test javoblarini kiriting: 
+                         Test javoblarini quyidagi shaklda yozishingiz mumkin:
+🔹 absd...
+🔹 1a2b3c4d...""")
+        await state.set_state(TestCreate.answers)
+        return
+    elif len(answers) != int(count_questions) and len(matches) != int(count_questions):
+        await message.answer("""Test javoblarini kiriting: 
+                         Test javoblarini quyidagi shaklda yozishingiz mumkin:
+🔹 absd...
+🔹 1a2b3c4d...""")
+        await state.set_state(TestCreate.answers)
+        return
+    javob_korinishi = []
+    if len(answers) == int(count_questions):
+        for i in range(len(answers)):
+            javob_korinishi.append(f"{i+1} {answers[i]}")
+    elif len(matches) == int(count_questions):
+        for i in range(1, len(matches)+1):
+            javob_korinishi.append(f"{i//10 + i if i<10 else i//10+i-1} {matches[i-1][1]}")
     # test javoblarini kiritish jarayoni.
+    await state.update_data(answers = ",".join(javob_korinishi))
+    test_file=data.get("test_file")
+    await message.answer("Javoblaringizni qabul qildik. Ma'lumotlarinigizni tekshirib ko'ring")
+    text_content=""
+    text_content+="Test savollar soni: "+count_questions + "\n"
+    text_content+="Javoblar: " + ", ".join(javob_korinishi) + "\n"
+    await message.answer_document(document=test_file, caption=text_content, reply_markup=yes_or_no)    
+    await state.set_state(TestCreate.tekshiruv)
 
-@admin.message(TestCreate.tekshiruv)
-async def adminTest_tekshiruv(message: Message, state: FSMContext):
-    pass
+
+@admin.callback_query(TestCreate.tekshiruv)
+async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
+    if query.data == "yes":
+        await query.answer("Ok")
+        data = await state.get_data()
+        test_file = data.get("test_file")
+        file_type=data.get("file_type")
+        count_question=data.get("count_questions")
+        answers = data.get("answers")
+        testholati = createTest(test_file=test_file, file_type=file_type, count_question=int(count_question), answers=answers, published="JARAYONDA")
+        await query.message.delete()
+        if testholati:
+            await query.message.answer("Ma'lumotlar saqlandi.")
+            return
+        else:
+            await query.message.answer("Ma'lumotni saqlashda hatolikga yuz keldik.")
+        await state.clear()
+        
+        return 
+    elif query.data == "no":
+        await query.answer("ok")
+        await query.message.answer("Test faylini kiriting: ")
+        await state.set_state(TestCreate.test_file)
     # test savol va javoblarini tekshirish jarayoni. 
 
 
 ###########################################################################################################
 ###########################################################################################################
 ###########################################################################################################
-@admin.message(Admin.hisobot)
+@admin.message(F.text == "Hisobot")
 async def adminCreate_hisobot(message: Message, state: FSMContext):
-    pass
+    await message.answer("Qaysi bo'lim haqida ma'lumot olmoqchisiz ?", reply_markup=adminHisobot)
     # admin tomonidan tayorlangan hisobotlarni ko'rish jarayoni.
+
+
+@admin.callback_query(lambda call: call.data in ["test", "tanlov"])
+async def adminHisobotQuery(query: CallbackQuery, state:  FSMContext):
+    await query.answer("Ok")
+    await query.message.delete()
+    if query.data=="test":
+        await query.message.answer("Testlar. Qaysi turdagi testlarni ko'rmoqchisiz ?", reply_markup=holatlar)
+        await state.set_state(AdminHisobotHolat.test)
+        # bu yerda testlar ro'yxatini chiqarib berishimiz kerak
+    elif query.data == "tanlov":
+        await query.message.answer("Tanlovlar. Qaysi turdagi tanlovlarni ko'rmoqchisiz ?", reply_markup=holatlar)
+        await state.set_state(AdminHisobotHolat.tanlov)        
+    return
+
+@admin.callback_query(AdminHisobotHolat.test)
+async def adminhisobotTestHolatlar(query: CallbackQuery, state: FSMContext):
+    await query.answer("OK")
+    await query.message.delete()
+    if query.data == "jarayonda":
+        testlar = getTestToAdmin(published="JARAYONDA")
+        await query.answer("Ok")
+        if (len(testlar) == 0):
+            await query.message.answer("Hozircha jarayondagi test mavjud emas")
+            await state.clear()
+            return
+        await query.message.answer("Teslar: ", reply_markup=testlistBtns(tests=testlar))
+        await state.clear()
+    elif query.data == "active":
+        testlar = getTestToAdmin(published="ACTIVE")
+        await query.answer("Ok")
+        if (len(testlar) == 0):
+            await query.message.answer("Hozircha active test mavjud emas")
+            await state.clear()
+            return
+        await query.message.answer("Teslar: ", reply_markup=testlistBtns(tests=testlar))
+        await state.clear()
+    elif query.data == "complated":
+        testlar = getTestToAdmin(published="COMPLATED")
+        await query.answer("Ok")
+        if (len(testlar) == 0):
+            await query.message.answer("Hozircha yakunlangan test mavjud emas")
+            await state.clear()
+            return
+        await query.message.answer("Teslar: ", reply_markup=testlistBtns(tests=testlar))
+        await state.clear()
+
+
+@admin.callback_query(AdminHisobotHolat.tanlov)
+async def adminhisobotTanlovHolatlar(query: CallbackQuery, state: FSMContext):
+    await query.message.delete()
+    if query.data == "jarayonda":
+        testlar = getTanlovlar(published="JARAYONDA")
+        await query.answer("Ok")
+        if (len(testlar) == 0):
+            await query.message.answer("Hozircha jarayondagi tanlov mavjud emas")
+            await state.clear()
+            return
+        await query.message.answer("Teslar: ", reply_markup=tanlovlistBtns(tests=testlar))
+        await state.clear()
+    elif query.data == "active":
+        testlar = getTanlovlar(published="ACTIVE")
+        await query.answer("Ok")
+        if (len(testlar) == 0):
+            await query.message.answer("Hozircha active tanlov mavjud emas")
+            await state.clear()
+            return
+        await query.message.answer("Teslar: ", reply_markup=tanlovlistBtns(tests=testlar))
+        await state.clear()
+    elif query.data == "complated":
+        testlar = getTanlovlar(published="COMPLATED")
+        await query.answer("Ok")
+        if (len(testlar) == 0):
+            await query.message.answer("Hozircha yakunlangan tanlov mavjud emas")
+            await state.clear()
+            return
+        await query.message.answer("Teslar: ", reply_markup=tanlovlistBtns(tests=testlar))
+        await state.clear()
+
+
+@admin.callback_query(F.data.startswith("testid"))
+async def testholatlarinitaqdimqilish(query: CallbackQuery):
+    testid = int(query.data.split("_")[-1])
+    test = getTestById(test_id=testid)
+    contest = ""
+    contest+="Fayl turi: " + test.get("file_type") + "\n"
+    contest+="Savollar soni: " + str(test.get("count_question")) + "\n"
+    contest+="Javoblari: " + test.get("answers") + "\n\n"
+    contest+="Holati: "+test.get("published") + "\n\n" 
+    await query.answer("ok")
+    await query.message.answer_document(document=test.get("test_file"), caption=contest)
+
+
+
+
+
+
+
+
+
+
+@admin.callback_query(F.data.startswith("tanlovid"))
+async def testholatlarinitaqdimqilish(query: CallbackQuery):
+    testid = int(query.data.split("_")[-1])
+    test = getOneTanlov(test_id=testid)
+    contest = ""
+    contest+= test.get("name") + "\n"
+    contest+=test.get("description") + "\n"
+    contest+="Boshlash vaqti: " + test.get("started_date") + "\n\n"
+    contest+="Tugash vaqti: " + test.get("end_date") + "\n\n"
+    contest+="Holati: "+test.get("published") + "\n\n" 
+    await query.answer("ok")
+    await query.message.answer_document(document=test.get("test_file"), caption=contest)
+
+
+@admin.message(F.text=="Bot haqida ma'lumot")
+async def aboutbot(message: Message):
+    await message.answer("Bu bot test yaratuvchilar va uni bajaruvchilar uchun ishlangan bepul bot hisoblanadi. Ushbu botni admin tomonidan boshqariladi va barchaga birdek foydalanish uchun yaratildi")

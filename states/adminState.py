@@ -20,3 +20,8 @@ class Admin(StatesGroup):
     createTest = State()
     createTanlov = State()
     hisobot = State()
+
+class AdminHisobotHolat(StatesGroup):
+    test = State()
+    tanlov = State()
+    

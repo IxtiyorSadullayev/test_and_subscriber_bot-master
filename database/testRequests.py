@@ -1,12 +1,12 @@
 import sqlite3
 
-def createTest(test_file:str, file_type:str, count_question:str, answers:str, published:str):
+def createTest(test_file:str, file_type:str, count_question:int, answers:str, published:str):
     try:
         with sqlite3.connect("mukam_bot.db") as db:
             cursor = db.cursor()
             cursor.execute("""
     INSERT INTO test (test_file, file_type, count_question, answers, published)
-    VALUES (?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ? )
 """, (test_file, file_type, count_question, answers, published, ))
             db.commit()
             return True
@@ -36,6 +36,7 @@ def getTestToAdmin(published:str):
 def getTestById(test_id):
     try:   
         with sqlite3.connect("mukam_bot.db") as db:
+            db.row_factory = sqlite3.Row
             cursor = db.cursor()
             cursor.execute("""
     SELECT * FROM test WHERE id = ?
