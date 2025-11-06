@@ -54,6 +54,7 @@ def updateTestHolat(test_id: int, published:str):
             cursor.execute("""
     UPDATE test SET published = ?  WHERE id = ?
 """, (published, test_id, ))
+            db.commit()
             return True
     except Exception as e:
         print("Testni olishda hatolik mavjud. ", e)

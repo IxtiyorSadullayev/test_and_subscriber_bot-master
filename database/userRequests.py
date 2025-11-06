@@ -15,6 +15,20 @@ def createUser(fullname:str, username:str, phoneNumber:str, tg_id:int, usernick=
         return False
     # User yaratish oynasi.
 
+def getAllUsers():
+    try:
+        with sqlite3.connect("mukam_bot.db") as db:
+            db.row_factory = sqlite3.Row
+            cursor = db.cursor()
+            cursor.execute("""
+    SELECT id, tg_id FROM user WHERE role = 'USER'
+""")
+            data = cursor.fetchall()
+            return [dict(row) for row in data]
+    except Exception as e:
+        print("Barcha userlanri olishda hatolik mavjud", e)
+        return False
+
 def getUserByTg_id(tg_id: int):
     # Userni qidirib topish id orqali
     try:

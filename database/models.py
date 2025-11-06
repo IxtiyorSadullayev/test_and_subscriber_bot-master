@@ -67,3 +67,16 @@ def createUserTest():
     """)
     db.commit()
     db.close() 
+
+def createNotification():
+    db = sqlite3.connect("mukam_bot.db")
+    cursor = db.cirsor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS notification(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tg_id INTEGER NOT NULL,
+    test_id INTEGER NULL,
+    tanlov_id INTEGER NULL,
+    holat TEXT NOT NULL
+    )
+""") 

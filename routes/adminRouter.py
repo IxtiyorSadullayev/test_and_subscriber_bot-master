@@ -9,8 +9,11 @@ from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tan
 
 
 # db
-from database.tanlovRequests import createTanlovDb, getTanlovlar, getOneTanlov
+from database.tanlovRequests import createTanlovDb, getTanlovlar, getOneTanlov, updateTanlovHolati
 from database.testRequests import createTest, getTestToAdmin, getTestById, updateTestHolat
+from database.notificationRequests import createNotification, getTanlovNotifications, getTestNotifications
+
+from main import bot
 
 admin = Router()
 
@@ -336,6 +339,8 @@ async def testholatiHolatlari(query: CallbackQuery):
     elif holat == '2': #Aktive qilish
         await query.answer("ok")
         updateTestHolat(test_id=testid, published="ACTIVE")
+        # bu yerda barcha userlarga yuborish kerak edi.
+        
         await query.message.delete()
         await query.message.answer("Bajarildi")
         return
@@ -347,10 +352,6 @@ async def testholatiHolatlari(query: CallbackQuery):
         return
     elif holat == '4': #Ishtirokchilar ro'yxatini chiqarish
         await query.answer("ok")
-        updateTestHolat(test_id=testid, published="COMPLATED")
-        await query.message.delete()
-        await query.message.answer("Bajarildi")
-        return
 
 
 
@@ -371,6 +372,36 @@ async def testholatlarinitaqdimqilish(query: CallbackQuery):
     contest+="Holati: "+test.get("published") + "\n\n" 
     await query.answer("ok")
     await query.message.answer_document(document=test.get("test_file"), caption=contest, reply_markup=tanlovholatiniyangilash(test_id=testid))
+
+
+@admin.callback_query(F.data.startswith("tanlovholati"))
+async def tanlovholatiTanlov(query: CallbackQuery):
+    holat = query.data.split("_")[1]
+    tanlovid = int(query.data.split("_")[-1])
+    if holat == "1":
+        await query.answer("ok")
+        updateTanlovHolati(tanlov_id=tanlovid, published="JARAYONDA")
+        await query.message.delete()
+        await query.message.answer("Bajarildi")
+        return
+    elif holat == "2":
+        await query.answer("ok")
+        updateTanlovHolati(tanlov_id=tanlovid, published="ACTIVE")
+
+        await query.message.delete()
+        await query.message.answer("Bajarildi")
+        return
+    elif holat == "3":
+        await query.answer("ok")
+        updateTanlovHolati(tanlov_id=tanlovid, published="COMPLATED")
+        await query.message.delete()
+        await query.message.answer("Bajarildi")
+        return
+    elif holat == "4":
+        await query.answer("ok")
+        # ishtirokchilar ro'yxati
+
+    
 
 
 @admin.message(F.text=="Bot haqida ma'lumot")

@@ -10,7 +10,7 @@ from routes.adminRouter import admin
 
 
 # get baza
-from database.models import createTanlov, createTest, createUser_table, createUserTest
+from database.models import createTanlov, createTest, createUser_table, createUserTest, createNotification
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -20,6 +20,7 @@ async def runBot():
     createUser_table()
     createTanlov()
     createTest()
+    createNotification()
     logging.basicConfig(level=logging.INFO)
     dp.include_router(startRouter)
     dp.include_router(user)

@@ -61,3 +61,14 @@ def getOneTanlov(tanlov_id: int):
         print("Bitta tanlovni olishda hatolik mavjud, ", e)
         return False
     
+def updateTanlovHolati(tanlov_id: int, published:str):
+    try:
+        with sqlite3.connect("mukam_bot.db") as db:
+            cursor = db.cursor()
+            cursor.execute("UPDATE tanlov SET published = ? WHERE id = ?", (published, tanlov_id,))
+            db.commit()
+            return True
+    except Exception as e:
+        print("Bitta tanlovni olishda hatolik mavjud, ", e)
+        return False
+    
