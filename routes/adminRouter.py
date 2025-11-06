@@ -10,7 +10,7 @@ from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tan
 
 # db
 from database.tanlovRequests import createTanlovDb, getTanlovlar, getOneTanlov
-from database.testRequests import createTest, getTestToAdmin, getTestById
+from database.testRequests import createTest, getTestToAdmin, getTestById, updateTestHolat
 
 admin = Router()
 
@@ -321,8 +321,36 @@ async def testholatlarinitaqdimqilish(query: CallbackQuery):
     contest+="Holati: "+test.get("published") + "\n\n" 
     await query.answer("ok")
     await query.message.answer_document(document=test.get("test_file"), caption=contest, reply_markup=testholatiniyangilash(test_id=testid))
-     
+    
 
+@admin.callback_query(F.data.startswith("testholati"))
+async def testholatiHolatlari(query: CallbackQuery):
+    holat = query.data.split("_")[1]
+    testid = int(query.data.split("_")[-1])
+    if holat == '1': #Jarayonda qilish
+        await query.answer("ok")
+        updateTestHolat(test_id=testid, published="JARAYONDA")
+        await query.message.delete()
+        await query.message.answer("Bajarildi")
+        return
+    elif holat == '2': #Aktive qilish
+        await query.answer("ok")
+        updateTestHolat(test_id=testid, published="ACTIVE")
+        await query.message.delete()
+        await query.message.answer("Bajarildi")
+        return
+    elif holat == '3': #Complated qilish
+        await query.answer("ok")
+        updateTestHolat(test_id=testid, published="COMPLATED")
+        await query.message.delete()
+        await query.message.answer("Bajarildi")
+        return
+    elif holat == '4': #Ishtirokchilar ro'yxatini chiqarish
+        await query.answer("ok")
+        updateTestHolat(test_id=testid, published="COMPLATED")
+        await query.message.delete()
+        await query.message.answer("Bajarildi")
+        return
 
 
 

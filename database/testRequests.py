@@ -46,3 +46,16 @@ def getTestById(test_id):
     except Exception as e:
         print("Testni olishda hatolik mavjud. ", e)
         return False
+    
+def updateTestHolat(test_id: int, published:str):
+    try:   
+        with sqlite3.connect("mukam_bot.db") as db:
+            cursor = db.cursor()
+            cursor.execute("""
+    UPDATE test SET published = ?  WHERE id = ?
+""", (published, test_id, ))
+            return True
+    except Exception as e:
+        print("Testni olishda hatolik mavjud. ", e)
+        return False
+    
