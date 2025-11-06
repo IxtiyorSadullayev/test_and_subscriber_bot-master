@@ -75,3 +75,30 @@ def tanlovlistBtns(tests: list):
             )
         )
     return builder.adjust(4).as_markup()
+
+def testholatiniyangilash(test_id:int):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="Jarayonda qilish", callback_data=f"testholati_1_{test_id}")],
+                [InlineKeyboardButton(text="Active qilish", callback_data=f"testholati_2_{test_id}")],
+                [InlineKeyboardButton(text="Complated qilish", callback_data=f"testholati_3_{test_id}"),
+            ], [
+                InlineKeyboardButton(text="Ishtirokchilar", callback_data=f"testholati_4_{test_id}")
+            ]
+        ]
+    )
+def tanlovholatiniyangilash(test_id:int):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="Jarayonda qilish", callback_data=f"tanlovholati_1_{test_id}")],
+            [InlineKeyboardButton(text="Active qilish", callback_data=f"tanlovholati_2_{test_id}")],
+                [InlineKeyboardButton(text="Complated qilish", callback_data=f"tanlovholati_3_{test_id}"),
+            ],
+            [
+                InlineKeyboardButton(text="Ishtirokchilar", callback_data=f"tanlovholati_4_{test_id}")
+
+            ]
+        ]
+    )

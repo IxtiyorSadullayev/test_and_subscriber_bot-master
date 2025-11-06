@@ -5,7 +5,7 @@ import re
 from states.adminState import Admin, AdminTanlov, TestCreate, AdminHisobotHolat
 
 # button 
-from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tanlovlistBtns
+from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tanlovlistBtns, testholatiniyangilash, tanlovholatiniyangilash
 
 
 # db
@@ -320,8 +320,8 @@ async def testholatlarinitaqdimqilish(query: CallbackQuery):
     contest+="Javoblari: " + test.get("answers") + "\n\n"
     contest+="Holati: "+test.get("published") + "\n\n" 
     await query.answer("ok")
-    await query.message.answer_document(document=test.get("test_file"), caption=contest)
-
+    await query.message.answer_document(document=test.get("test_file"), caption=contest, reply_markup=testholatiniyangilash(test_id=testid))
+     
 
 
 
@@ -342,7 +342,7 @@ async def testholatlarinitaqdimqilish(query: CallbackQuery):
     contest+="Tugash vaqti: " + test.get("end_date") + "\n\n"
     contest+="Holati: "+test.get("published") + "\n\n" 
     await query.answer("ok")
-    await query.message.answer_document(document=test.get("test_file"), caption=contest)
+    await query.message.answer_document(document=test.get("test_file"), caption=contest, reply_markup=tanlovholatiniyangilash(test_id=testid))
 
 
 @admin.message(F.text=="Bot haqida ma'lumot")
