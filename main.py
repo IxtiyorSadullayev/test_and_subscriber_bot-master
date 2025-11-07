@@ -1,5 +1,4 @@
-from aiogram import Bot, Dispatcher 
-from config import TOKEN
+from helpers.bot import bot, dp
 from asyncio import run
 import logging
 
@@ -12,8 +11,7 @@ from routes.adminRouter import admin
 # get baza
 from database.models import createTanlov, createTest, createUser_table, createUserTest, createNotification
 
-bot = Bot(token=TOKEN)
-dp = Dispatcher()
+
 
 async def runBot():
     createUserTest()
@@ -33,4 +31,4 @@ if __name__=="__main__":
         run(runBot())
     except Exception as e:
         # bot.send_message()
-        print("Hatolik mavjud")
+        print("Hatolik mavjud", e)

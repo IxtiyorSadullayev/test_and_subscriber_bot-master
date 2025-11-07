@@ -1,14 +1,14 @@
 import sqlite3
 
 
-def createNotification(user_id: int, test_id: int, tanlov_id: int, holat: str):
+def createNotification(tg_id: int, test_id: int, tanlov_id: int, holat: str):
     try:
         with sqlite3.connect("mukam_bot.db") as db:
             cursor = db.cursor()
             cursor.execute("""
-    INSERT INTO notification (user_id, test_id, tanlov_id, holat)
+    INSERT INTO notification (tg_id, test_id, tanlov_id, holat)
     VALUES (?, ?, ?, ?)
-""", (user_id, test_id, tanlov_id, holat, ))
+""", (tg_id, test_id, tanlov_id, holat, ))
             db.commit()
             return True
     except Exception as e:

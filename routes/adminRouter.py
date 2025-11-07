@@ -1,6 +1,7 @@
 from aiogram import Router, F 
 from aiogram.types import Message, ReplyKeyboardRemove, CallbackQuery
 from aiogram.fsm.context import FSMContext
+import asyncio
 import re
 from states.adminState import Admin, AdminTanlov, TestCreate, AdminHisobotHolat
 
@@ -12,8 +13,9 @@ from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tan
 from database.tanlovRequests import createTanlovDb, getTanlovlar, getOneTanlov, updateTanlovHolati
 from database.testRequests import createTest, getTestToAdmin, getTestById, updateTestHolat
 from database.notificationRequests import createNotification, getTanlovNotifications, getTestNotifications
+from database.userRequests import getAllUsers
 
-from main import bot
+from helpers.bot import bot
 
 admin = Router()
 
@@ -340,7 +342,19 @@ async def testholatiHolatlari(query: CallbackQuery):
         await query.answer("ok")
         updateTestHolat(test_id=testid, published="ACTIVE")
         # bu yerda barcha userlarga yuborish kerak edi.
-        
+        users = getAllUsers()
+        if not users:
+            pass
+        else:
+            for user in users:
+                try:
+                    # await query.message.answer
+                    await bot.send_message(user.get("tg_id"), f"Yangi test aktiv bo'ldi. Testid: {testid}")
+                    createNotification(tg_id=user.get("tg_id"), test_id=testid, tanlov_id=None, holat="Jo'natildi")
+                except:
+                    createNotification(tg_id=user.get("tg_id"), test_id=testid, tanlov_id=None, holat="Jo'natma bekor bo'ldi. Foydalanuvchi bilan aloqa mavjud emas.")
+                await asyncio.sleep(0.05)
+
         await query.message.delete()
         await query.message.answer("Bajarildi")
         return
