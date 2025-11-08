@@ -27,10 +27,11 @@ btnsAdmin = ReplyKeyboardMarkup(
 
 getContact = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="Get Phone Number", request_contact=True)]], resize_keyboard=True, input_field_placeholder="Telefon raqamingizni tugma orqali bosib qoldiring.")
 
-yes_or_no = InlineKeyboardMarkup(
+def yes_or_no(type:str):
+    return InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text="Ha", callback_data="yes"),
-        InlineKeyboardButton(text="Yo'q", callback_data="no"),]
+        [InlineKeyboardButton(text="Ha", callback_data=f"{type}yes"),
+        InlineKeyboardButton(text="Yo'q", callback_data=f"{type}no"),]
     ]
 )
 

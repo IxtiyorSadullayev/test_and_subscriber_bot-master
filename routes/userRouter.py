@@ -8,7 +8,7 @@ from states.userState import TestAnswersFromUser, UserActions
 
 # db
 from database.testRequests import getTestById
-from database.usertestRequests import createuserTest, getTekshiruvTestUser
+from database.usertestRequests import createuserTest, getTekshiruvTestUser, getUserTesttoUserTest
 
 # btn
 from helpers.buttons import yes_or_no
@@ -106,15 +106,15 @@ async def testAnswerfromUser_answers(message: Message, state: FSMContext):
     # Javoblarni tekshirish jarayoni.
 
     await state.update_data(answers = ",".join(javob_korinishi))
-    await message.answer(f"Javoblaringizni tekshirib ko'ring. Javoblar: \n{", ".join(javob_korinishi)}", reply_markup=yes_or_no)
+    await message.answer(f"Javoblaringizni tekshirib ko'ring. Javoblar: \n{", ".join(javob_korinishi)}", reply_markup=yes_or_no("user"))
     await state.set_state(TestAnswersFromUser.tekshiruv)
 
     # user test kalitlarini kiritish jarayoni
     
-@user.callback_query(lambda call: call.data in ["yes", "no"] )
+@user.callback_query(TestAnswersFromUser.tekshiruv)
 async def testAnswerfromUser_tekshiruv(query: CallbackQuery, state: FSMContext):
     check = query.data
-    if check == "yes":
+    if check == "useryes":
         tg_id = query.message.chat.id
         data =await state.get_data()
         answers = data.get("answers").split(",")
@@ -138,7 +138,7 @@ async def testAnswerfromUser_tekshiruv(query: CallbackQuery, state: FSMContext):
         await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{", ".join(tekshiruv)}")
         await state.clear()
 
-    if check == 'no':
+    if check == 'userno':
         await query.answer("ok")
         await query.message.answer("""Test javoblarini kiriting: 
                          Test javoblarini quyidagi shaklda yozishingiz mumkin:
@@ -148,4 +148,15 @@ async def testAnswerfromUser_tekshiruv(query: CallbackQuery, state: FSMContext):
         return
     # user test ishlash jarayoni test kodini so'rash jarayoni tugagandan keyin tekshirish joyi.
     
-    
+
+
+@user.message(F.text == "Natijalarim")
+async def mynatijalar(message: Message):
+    tg_id = message.from_user.id
+    testlar = getUserTesttoUserTest(tg_id=tg_id)
+    text = ""
+    text+=f"Hurmatli bot foydalanuvchisi. Siz jami {len(testlar)} ta testda ishtirok etgansiz.\n"
+    for i in range(len(testlar)):
+        natija = testlar[i].get("score")/len(testlar[i].get("answers").split(","))
+        text += f"{i+1}. {testlar[i].get("score")} ta {f"{(natija*100):.2f}"}% ko'rsatgich.\n"
+    await message.answer(text=text)

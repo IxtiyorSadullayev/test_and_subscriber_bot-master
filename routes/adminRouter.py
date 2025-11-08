@@ -98,13 +98,13 @@ async def adminTanlov_end_date(message: Message, state: FSMContext):
     content_text+=description+"\n"
     content_text+=start_date+"\n"
     content_text+=end_date
-    await message.answer_photo(photo=image, caption=content_text, reply_markup=yes_or_no)
+    await message.answer_photo(photo=image, caption=content_text, reply_markup=yes_or_no("admin"))
     await state.set_state(AdminTanlov.tekshiruv)
     # tanlov tugash vaqtini e'lon qilish oynasi
 
 @admin.callback_query(AdminTanlov.tekshiruv)
 async def adminTanlov_tekshiruv(query: CallbackQuery, state: FSMContext):
-    if query.data == "yes":
+    if query.data == "adminyes":
         await query.answer("ok")
         data=await state.get_data()
         name=data.get("name")
@@ -117,7 +117,7 @@ async def adminTanlov_tekshiruv(query: CallbackQuery, state: FSMContext):
         await query.message.answer("Ma'lumotlar saqlandi")
         await state.clear()
         return 
-    elif query.data == "no":
+    elif query.data == "adminno":
         await query.answer("ok")
         await query.message.answer("Yaratmoqchi bo'lgan tanlovingizni nomini yozib qoldiring:")
         await state.set_state(AdminTanlov.name)
@@ -198,13 +198,13 @@ async def adminTest_answers(message: Message, state: FSMContext):
     text_content=""
     text_content+="Test savollar soni: "+count_questions + "\n"
     text_content+="Javoblar: " + ", ".join(javob_korinishi) + "\n"
-    await message.answer_document(document=test_file, caption=text_content, reply_markup=yes_or_no)    
+    await message.answer_document(document=test_file, caption=text_content, reply_markup=yes_or_no("admintest"))    
     await state.set_state(TestCreate.tekshiruv)
 
 
 @admin.callback_query(TestCreate.tekshiruv)
 async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
-    if query.data == "yes":
+    if query.data == "admintestyes":
         await query.answer("Ok")
         data = await state.get_data()
         test_file = data.get("test_file")
@@ -221,7 +221,7 @@ async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
         await state.clear()
         
         return 
-    elif query.data == "no":
+    elif query.data == "admintestno":
         await query.answer("ok")
         await query.message.answer("Test faylini kiriting: ")
         await state.set_state(TestCreate.test_file)

@@ -57,13 +57,13 @@ async def userRegister_phone(message: Message, state: FSMContext):
         return
     await state.update_data(user_phone = message.contact.phone_number)
     data = await state.get_data()
-    await message.answer(f"Ma'lumotlaringizni tekshirib ko'ring!\nFullname: {data.get("user_name")}\nPhone number: {data.get("user_phone")}\n\nBarcha ma'lumotlaringiz to'g'rimi?", reply_markup=yes_or_no)
+    await message.answer(f"Ma'lumotlaringizni tekshirib ko'ring!\nFullname: {data.get("user_name")}\nPhone number: {data.get("user_phone")}\n\nBarcha ma'lumotlaringiz to'g'rimi?", reply_markup=yes_or_no("start"))
     await state.set_state(User.tekshiruv)
     # userdan ishlab turgan ishonchli telefon raqamini olish uchun kerak. 
 
 @startRouter.callback_query(User.tekshiruv)
 async def userRegister_tekshiruv(query: CallbackQuery, state: FSMContext):
-    if query.data == "yes":
+    if query.data == "startyes":
         await query.answer("Ok")
         data = await state.get_data()
         username = query.message.chat.username
@@ -72,7 +72,7 @@ async def userRegister_tekshiruv(query: CallbackQuery, state: FSMContext):
         await query.message.answer("Ro'yxatdan o'tganingiz uchun katta rahmat. Botdan foydalanish uchun quyidagi kamandalarning birini tanlang.", reply_markup=btnsUser)
         await state.clear()
         return 
-    elif query.data == "no":
+    elif query.data == "startno":
         await query.answer("ok")
         await query.message.answer("To'liq ismingizni kiriting: ")
         await state.set_state(User.user_name)
