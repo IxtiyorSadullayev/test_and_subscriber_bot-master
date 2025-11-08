@@ -58,7 +58,7 @@ def createUserTest():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS usertest(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL,
+        tg_id INTEGER NOT NULL,
         test_id INTEGER NOT NULL,
         answers TEXT NOT NULL,
         score INTEGER NOT NULL,

@@ -173,7 +173,7 @@ async def adminTest_answers(message: Message, state: FSMContext):
     if len(answers)==0:
         await message.answer("""Test javoblarini kiriting: 
                          Test javoblarini quyidagi shaklda yozishingiz mumkin:
-🔹 absd...
+🔹 absd... 
 🔹 1a2b3c4d...""")
         await state.set_state(TestCreate.answers)
         return

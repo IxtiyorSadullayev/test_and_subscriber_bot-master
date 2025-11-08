@@ -1,13 +1,13 @@
 import sqlite3
 
-def createuserTest(user_id: int, test_id: int, answers: str, score: int, result:str):
+def createuserTest(tg_id: int, test_id: int, answers: str, score: int, result:str):
     try:
         with sqlite3.connect("mukam_bot.db") as db:
             cursor = db.cursor()
             cursor.execute("""
-    INSERT INTO usertest (user_id, test_id, answers, score, result)
+    INSERT INTO usertest (tg_id, test_id, answers, score, result)
     VALUES (?, ?, ?, ?, ?) 
-""", (user_id, test_id, answers, score, result))
+""", (tg_id, test_id, answers, score, result))
             db.commit()
             return True
     except Exception as e:

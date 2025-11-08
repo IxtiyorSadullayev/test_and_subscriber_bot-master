@@ -10,6 +10,7 @@ class User(StatesGroup):
 class TestAnswersFromUser(StatesGroup):
     test_code = State()
     answers = State()
+    count_question = State()
     tekshiruv = State()
 
 class UserActions(StatesGroup):

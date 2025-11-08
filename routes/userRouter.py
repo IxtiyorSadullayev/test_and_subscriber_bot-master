@@ -2,8 +2,17 @@ from aiogram import Router, F
 from aiogram.types import Message, ReplyKeyboardRemove, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from aiogram.enums import ParseMode
-
+import re
 from states.userState import TestAnswersFromUser, UserActions
+
+
+# db
+from database.testRequests import getTestById
+from database.usertestRequests import createuserTest
+
+# btn
+from helpers.buttons import yes_or_no
+
 
 ###########################################################################################################
 ###########################################################################################################
@@ -26,9 +35,10 @@ async def taklifHavolasi(message: Message):
 
 
 
-@user.message(UserActions.work_test)
+@user.message(F.text == "Test ishlash")
 async def userActions_work_test(message: Message, state: FSMContext):
-    pass
+    await message.answer("Test kodini kiriting. Test kodi raqam bo'lishi kerak.")
+    await state.set_state(TestAnswersFromUser.test_code)
     # user test ishlash jarayoni 
 
 ###########################################################################################################
@@ -36,17 +46,101 @@ async def userActions_work_test(message: Message, state: FSMContext):
 ###########################################################################################################
 @user.message(TestAnswersFromUser.test_code)
 async def testAnswerfromUser_test_code(message: Message, state: FSMContext):
-    pass
+    test_code = message.text 
+    if len(test_code) == 0 or not test_code.isdigit():
+        await message.answer("Test kodini kiriting. Test kodi raqam bo'lishi kerak.")
+        await state.set_state(TestAnswersFromUser.test_code)
+        return
+    test = getTestById(test_id=test_code)
+    if not test:
+        await message.answer("Kechirasiz siz kiritgan test kodi mavjud emas yokida aktive emas.")
+        return
+    if test.get("published") != "ACTIVE":
+        await message.answer("Kechirasiz siz kiritgan test kodi mavjud emas yokida aktive emas.")
+        return
+    await state.update_data(test_code = test_code)
+    await state.update_data(count_question=test.get("count_question"))
+    await message.answer_document(test.get("test_file"), caption=f"Ushbu testda jami {test.get("count_question")} ta test mavjud.")
+    await message.answer("""Test javoblarini kiriting: 
+                         Test javoblarini quyidagi shaklda yozishingiz mumkin:
+🔹 absd...
+🔹 1a2b3c4d...""")
+    await state.set_state(TestAnswersFromUser.answers)
+
     # user test ishlash jarayoni test kodini so'rash jarayoni
 
 @user.message(TestAnswersFromUser.answers)
 async def testAnswerfromUser_answers(message: Message, state: FSMContext):
-    pass
+    answers = message.text
+    data = await state.get_data()
+    count_questions = data.get("count_question")
+    matches = re.findall(r'(\d)([a-zA-Z])', answers)
+    if len(answers)==0:
+        await message.answer("""Test javoblarini kiriting: 
+                         Test javoblarini quyidagi shaklda yozishingiz mumkin:
+🔹 absd...
+🔹 1a2b3c4d...""")
+        await state.set_state(TestAnswersFromUser.answers)
+        return
+    elif len(answers) != int(count_questions) and len(matches) != int(count_questions):
+        await message.answer("""Test javoblarini kiriting: 
+                         Test javoblarini quyidagi shaklda yozishingiz mumkin:
+🔹 absd...
+🔹 1a2b3c4d...""")
+        await state.set_state(TestAnswersFromUser.answers)
+        return
+    javob_korinishi = []
+    if len(answers) == int(count_questions):
+        for i in range(len(answers)):
+            javob_korinishi.append(f"{i+1} {answers[i]}")
+    elif len(matches) == int(count_questions):
+        for i in range(1, len(matches)+1):
+            javob_korinishi.append(f"{i//10 + i if i<10 else i//10+i-1} {matches[i-1][1]}")
+    
+    # 
+    # Javoblarni tekshirish jarayoni.
+
+    await state.update_data(answers = ",".join(javob_korinishi))
+    await message.answer(f"Javoblaringizni tekshirib ko'ring. Javoblar: \n{", ".join(javob_korinishi)}", reply_markup=yes_or_no)
+    await state.set_state(TestAnswersFromUser.tekshiruv)
+
     # user test kalitlarini kiritish jarayoni
     
-@user.message(TestAnswersFromUser.tekshiruv)
-async def testAnswerfromUser_tekshiruv(message: Message, state: FSMContext):
-    pass
+@user.callback_query(lambda call: call.data in ["yes", "no"] )
+async def testAnswerfromUser_tekshiruv(query: CallbackQuery, state: FSMContext):
+    check = query.data
+    if check == "yes":
+        tg_id = query.message.chat.id
+        data =await state.get_data()
+        answers = data.get("answers").split(",")
+        test_id=data.get("test_code")
+        test = getTestById(test_id = test_id )
+        test_answers = test.get("answers").split(",")
+        tekshiruv=[]
+        accepted=0
+        for i in range(len(test_answers)):
+            if test_answers[i][-1] == answers[i][-1]:
+                tekshiruv.append(f"{i+1 } ✅")
+                accepted+=1
+            else:
+                tekshiruv.append(f"{i+1 } 🚫")
+        natija = createuserTest(tg_id=tg_id, test_id=test_id, answers=", ".join(answers), score=accepted, result=", ".join(tekshiruv))
+        if not natija:
+            await query.answer("ok")
+            await query.message.answer("Ma'lumotlarni saqlashda hatolikga yo'lq qo'yildi")
+            return
+        await query.answer("ok")
+        await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{", ".join(tekshiruv)}")
+        await state.clear()
+
+    if check == 'no':
+        await query.answer("ok")
+        await query.message.answer("""Test javoblarini kiriting: 
+                         Test javoblarini quyidagi shaklda yozishingiz mumkin:
+🔹 absd...
+🔹 1a2b3c4d...""")
+        await state.set_state(TestAnswersFromUser.answers)
+        return
     # user test ishlash jarayoni test kodini so'rash jarayoni tugagandan keyin tekshirish joyi.
     
     
