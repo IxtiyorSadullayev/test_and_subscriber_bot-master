@@ -8,7 +8,7 @@ from states.userState import TestAnswersFromUser, UserActions
 
 # db
 from database.testRequests import getTestById
-from database.usertestRequests import createuserTest
+from database.usertestRequests import createuserTest, getTekshiruvTestUser
 
 # btn
 from helpers.buttons import yes_or_no
@@ -50,6 +50,11 @@ async def testAnswerfromUser_test_code(message: Message, state: FSMContext):
     if len(test_code) == 0 or not test_code.isdigit():
         await message.answer("Test kodini kiriting. Test kodi raqam bo'lishi kerak.")
         await state.set_state(TestAnswersFromUser.test_code)
+        return
+    tekshiruv = getTekshiruvTestUser(tg_id=message.from_user.id, test_id=test_code)
+    if not tekshiruv:
+        await message.answer("Kechirasiz siz ushbu testni oldin ishlagansiz. 2-marotaba ishlashga ruxsat berilmagan.")
+        await state.clear()
         return
     test = getTestById(test_id=test_code)
     if not test:

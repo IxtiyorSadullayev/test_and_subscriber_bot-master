@@ -27,16 +27,28 @@ def getUserTesttoAdmin(test_id):
         print("testlarni admin sifatida ko'rishda hatolik mavjud, ", e)
         return False
 
-def getUserTesttoUserTest(user_id):
+def getUserTesttoUserTest(tg_id):
     try:
         with sqlite3.connect("mukam_bot.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
-            cursor.execute("SELECT * FROM usertest WHERE user_id = ?", (user_id, ))
+            cursor.execute("SELECT * FROM usertest WHERE tg_id = ?", (tg_id, ))
             testlar = cursor.fetchall()
             return [dict(row) for row in testlar] if testlar else []
     except Exception as e:
         print("testlarni foydalanuvchi sifatida ko'rishda hatolik mavjud, ", e)
         return False
 
-
+def getTekshiruvTestUser(tg_id:int, test_id:int):
+    try:
+        with sqlite3.connect("mukam_bot.db") as db:
+            db.row_factory = sqlite3.Row
+            cursor = db.cursor()
+            cursor.execute("SELECT * FROM usertest WHERE tg_id = ? AND test_id = ?", (tg_id,test_id, ))
+            testlar = cursor.fetchall()
+            if len(testlar)>0:
+                return False
+            return True
+    except Exception as e:
+        print("testlarni foydalanuvchi sifatida ko'rishda hatolik mavjud, ", e)
+        return False
