@@ -9,7 +9,7 @@ adminButtons = ["Talnov yaratish", "Test yaratish", "Hisobot"]
 
 btnsUser = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text="Test ishlash"), KeyboardButton(text="Tanlovlar")],
+        [KeyboardButton(text="Test ishlash")],
         [KeyboardButton(text="Taklif havolam"), KeyboardButton(text="Yig'gan odamlarim")],
         [KeyboardButton(text="Natijalarim"), KeyboardButton(text="Bot haqida ma'lumot")] 
     ],

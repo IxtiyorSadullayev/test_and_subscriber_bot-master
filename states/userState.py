@@ -2,6 +2,7 @@ from aiogram.fsm.state import State, StatesGroup
 
 class User(StatesGroup):
     tg_id = State()
+    taklif_id=State()
     user_name = State()
     user_phone = State()
     user_role = State()

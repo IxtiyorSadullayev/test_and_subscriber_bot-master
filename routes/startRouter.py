@@ -6,6 +6,7 @@ from states.userState import User
 
 # getbaza
 from database.userRequests import getUserByTg_id, createUser, updateUserByTg_id_role
+from database.chaqirRequests import createChaqirData
 
 # tugmalar
 from helpers.buttons import btnsUser, btnsAdmin, getContact, yes_or_no
@@ -19,9 +20,12 @@ async def startCommand(message: Message, state: FSMContext):
     # await message.answer('Hello')
     tg_id = message.from_user.id 
     user = getUserByTg_id(tg_id=tg_id)
-    if not user:
+    
+    if not user :
         await message.answer("Assalomu aleykum. Botimizga hush kelibsiz. Botdan to'liq foydalanishingiz uchun ro'yxatdan o'tishingiz kerak bo'ladi. \nTo'liq ismingizni kiriting:")
         await state.set_state(User.user_name)
+        if len(message.text.split(" "))>1:
+            await state.update_data(taklif_id=message.text.split(" ")[1])
         return
     
     if user.get("role") == "USER":
@@ -67,6 +71,9 @@ async def userRegister_tekshiruv(query: CallbackQuery, state: FSMContext):
         await query.answer("Ok")
         data = await state.get_data()
         username = query.message.chat.username
+        taklif_id=data.get("taklif_id")
+        if taklif_id:
+            createChaqirData(tg_id=int(taklif_id), client_id=query.message.chat.id)
         await query.message.delete()
         createUser(fullname=data.get("user_name"), username= username if username else "no username", phoneNumber=data.get("user_phone"),tg_id=query.message.chat.id,)
         await query.message.answer("Ro'yxatdan o'tganingiz uchun katta rahmat. Botdan foydalanish uchun quyidagi kamandalarning birini tanlang.", reply_markup=btnsUser)

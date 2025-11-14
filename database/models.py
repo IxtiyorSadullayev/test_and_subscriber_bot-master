@@ -11,7 +11,9 @@ def createUser_table():
         phoneNumber TEXT NOT NULL,
         tg_id INTEGER NOT NULL,
         usernick TEXT,
-        role TEXT DEFAULT 'USER'
+        role TEXT DEFAULT 'USER',
+        created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        
     )
     """)
     db.commit()
@@ -28,7 +30,9 @@ def createTanlov():
         image TEXT NOT NULL,
         started_date TEXT NOT NULL,
         end_date TEXT NOT NULL,
-        published TEXT DEFAULT 'JARAYONDA'
+        published TEXT DEFAULT 'JARAYONDA',
+        created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        
 
     )
     """)
@@ -46,7 +50,9 @@ def createTest():
         file_type TEXT NOT NULL,
         count_question INTEGER NOT NULL,
         answers TEXT NOT NULL,
-        published TEXT DEFAULT 'JARAYONDA'
+        published TEXT DEFAULT 'JARAYONDA',
+        created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        
     )
     """)
     db.commit()
@@ -62,7 +68,9 @@ def createUserTest():
         test_id INTEGER NOT NULL,
         answers TEXT NOT NULL,
         score INTEGER NOT NULL,
-        result TEXT NOT NULL
+        result TEXT NOT NULL,
+        created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        
     )
     """)
     db.commit()
@@ -77,6 +85,19 @@ def createNotification():
     tg_id INTEGER NOT NULL,
     test_id INTEGER NULL,
     tanlov_id INTEGER NULL,
-    holat TEXT NOT NULL
+    holat TEXT NOT NULL,
+    created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""") 
+    
+def createChaqiruv():
+    db = sqlite3.connect("mukam_bot.db")
+    cursor = db.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS chaqiruv(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tg_id INTEGER NOT NULL,
+    client_id INTEGER NOT NULL,
+    created  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
 """) 

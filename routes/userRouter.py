@@ -9,6 +9,7 @@ from states.userState import TestAnswersFromUser, UserActions
 # db
 from database.testRequests import getTestById
 from database.usertestRequests import createuserTest, getTekshiruvTestUser, getUserTesttoUserTest
+from database.chaqirRequests import  getForUserData
 
 # btn
 from helpers.buttons import yes_or_no
@@ -160,3 +161,12 @@ async def mynatijalar(message: Message):
         natija = testlar[i].get("score")/len(testlar[i].get("answers").split(","))
         text += f"{i+1}. Test id:{testlar[i].get("test_id")} -> {f"{(natija*100):.2f}"}% ko'rsatgich.\n"
     await message.answer(text=text)
+
+@user.message(F.text=="Yig'gan odamlarim")
+async def yigilganodamlarsoni(message: Message):
+    tg_id = message.from_user.id
+    data = getForUserData(tg_id=tg_id)
+    if not data or data==0:
+        await message.answer("Hozircha sizda hech qanday taklif qilgan insonlaringiz mavjud emas.")
+        return
+    await message.answer(f"Siz jami {data} ta ishtirok yig'dingiz.")
