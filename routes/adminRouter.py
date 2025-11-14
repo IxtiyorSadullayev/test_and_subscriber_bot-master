@@ -320,6 +320,7 @@ async def testholatlarinitaqdimqilish(query: CallbackQuery):
     testid = int(query.data.split("_")[-1])
     test = getTestById(test_id=testid)
     contest = ""
+    contest += f"Test id raqami: {testid}\n" 
     contest+="Fayl turi: " + test.get("file_type") + "\n"
     contest+="Savollar soni: " + str(test.get("count_question")) + "\n"
     contest+="Javoblari: " + test.get("answers") + "\n\n"
