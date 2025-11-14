@@ -237,15 +237,15 @@ async def adminCreate_hisobot(message: Message, state: FSMContext):
     # admin tomonidan tayorlangan hisobotlarni ko'rish jarayoni.
 
 
-@admin.callback_query(lambda call: call.data in ["test", "tanlov"])
+@admin.callback_query(F.data.startswith('admin_t'))
 async def adminHisobotQuery(query: CallbackQuery, state:  FSMContext):
     await query.answer("Ok")
     await query.message.delete()
-    if query.data=="test":
+    if query.data=="admin_test":
         await query.message.answer("Testlar. Qaysi turdagi testlarni ko'rmoqchisiz ?", reply_markup=holatlar)
         await state.set_state(AdminHisobotHolat.test)
         # bu yerda testlar ro'yxatini chiqarib berishimiz kerak
-    elif query.data == "tanlov":
+    elif query.data == "admin_tanlov":
         await query.message.answer("Tanlovlar. Qaysi turdagi tanlovlarni ko'rmoqchisiz ?", reply_markup=holatlar)
         await state.set_state(AdminHisobotHolat.tanlov)        
     return

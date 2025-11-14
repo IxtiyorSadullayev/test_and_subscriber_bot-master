@@ -38,8 +38,8 @@ def yes_or_no(type:str):
 adminHisobot = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text="Testlar", callback_data='test'),
-            InlineKeyboardButton(text="Tanlovlar", callback_data='tanlov'),
+            InlineKeyboardButton(text="Testlar", callback_data='admin_test'),
+            InlineKeyboardButton(text="Tanlovlar", callback_data='admin_tanlov'),
         ]
     ]
 )
