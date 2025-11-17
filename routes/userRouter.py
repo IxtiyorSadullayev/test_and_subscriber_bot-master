@@ -60,9 +60,11 @@ async def testAnswerfromUser_test_code(message: Message, state: FSMContext):
     test = getTestById(test_id=test_code)
     if not test:
         await message.answer("Kechirasiz siz kiritgan test kodi mavjud emas yokida aktive emas.")
+        await state.clear()
         return
     if test.get("published") != "ACTIVE":
         await message.answer("Kechirasiz siz kiritgan test kodi mavjud emas yokida aktive emas.")
+        await state.clear()
         return
     await state.update_data(test_code = test_code)
     await state.update_data(count_question=test.get("count_question"))
