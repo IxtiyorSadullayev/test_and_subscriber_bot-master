@@ -61,7 +61,11 @@ async def userRegister_phone(message: Message, state: FSMContext):
         return
     await state.update_data(user_phone = message.contact.phone_number)
     data = await state.get_data()
-    await message.answer(f"Ma'lumotlaringizni tekshirib ko'ring!\nFullname: {data.get("user_name")}\nPhone number: {data.get("user_phone")}\n\nBarcha ma'lumotlaringiz to'g'rimi?", reply_markup=yes_or_no("start"))
+    # await message.answer(f"Ma'lumotlaringizni tekshirib ko'ring!\nFullname: {data.get("user_name")}\nPhone number: {data.get("user_phone")}\n\nBarcha ma'lumotlaringiz to'g'rimi?", reply_markup=yes_or_no("start"))
+    await message.answer(
+    f"Ma'lumotlaringizni tekshirib ko'ring!\nFullname: {data.get('user_name')}\nPhone number: {data.get('user_phone')}\n\nBarcha ma'lumotlaringiz to'g'rimi?",
+    reply_markup=yes_or_no("start")
+)
     await state.set_state(User.tekshiruv)
     # userdan ishlab turgan ishonchli telefon raqamini olish uchun kerak. 
 
