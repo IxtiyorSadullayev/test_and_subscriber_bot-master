@@ -146,7 +146,8 @@ async def testAnswerfromUser_tekshiruv(query: CallbackQuery, state: FSMContext):
             return
         await query.answer("ok")
         # await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{", ".join(tekshiruv)}")
-        await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{", ".join(tekshiruv)}")
+        # await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{", ".join(tekshiruv)}")
+        await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{', '.join(tekshiruv)}")
 
         await state.clear()
 
