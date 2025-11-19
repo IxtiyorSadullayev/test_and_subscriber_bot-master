@@ -145,7 +145,9 @@ async def testAnswerfromUser_tekshiruv(query: CallbackQuery, state: FSMContext):
             await query.message.answer("Ma'lumotlarni saqlashda hatolikga yo'lq qo'yildi")
             return
         await query.answer("ok")
+        # await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{", ".join(tekshiruv)}")
         await query.message.answer(f"Siz berilgan savollarning {accepted} tasiga to'g'ri javob berdingiz. Siz bergan javoblar:\n{", ".join(tekshiruv)}")
+
         await state.clear()
 
     if check == 'userno':
