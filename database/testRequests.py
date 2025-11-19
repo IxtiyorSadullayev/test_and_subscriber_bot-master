@@ -2,7 +2,7 @@ import sqlite3
 
 def createTest(test_file:str, file_type:str, count_question:int, answers:str, published:str):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
             cursor.execute("""
     INSERT INTO test (test_file, file_type, count_question, answers, published)
@@ -20,7 +20,7 @@ def createTest(test_file:str, file_type:str, count_question:int, answers:str, pu
 # Tugallangan
 def getTestToAdmin(published:str):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row 
             cursor = db.cursor()
             cursor.execute("""
@@ -35,7 +35,7 @@ def getTestToAdmin(published:str):
 
 def getTestById(test_id):
     try:   
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
             cursor.execute("""
@@ -47,9 +47,23 @@ def getTestById(test_id):
         print("Testni olishda hatolik mavjud. ", e)
         return False
     
+def getAllAllTest():
+    try:   
+        with sqlite3.connect("database.db") as db:
+            db.row_factory = sqlite3.Row
+            cursor = db.cursor()
+            cursor.execute("""
+    SELECT * FROM test
+""", )
+            test = cursor.fetchone()
+            return [dict(test) if test else False]
+    except Exception as e:
+        print("Testni olishda hatolik mavjud. ", e)
+        return False
+    
 def updateTestHolat(test_id: int, published:str):
     try:   
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
             cursor.execute("""
     UPDATE test SET published = ?  WHERE id = ?

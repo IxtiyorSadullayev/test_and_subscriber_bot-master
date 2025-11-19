@@ -1,8 +1,10 @@
 from aiogram import Router, F 
-from aiogram.types import Message, ReplyKeyboardRemove, CallbackQuery
+from aiogram.types import Message, ReplyKeyboardRemove, CallbackQuery, FSInputFile
 from aiogram.fsm.context import FSMContext
 import asyncio
+import pandas as pd
 import re
+import os
 from states.adminState import Admin, AdminTanlov, TestCreate, AdminHisobotHolat
 
 # button 
@@ -14,6 +16,7 @@ from database.tanlovRequests import createTanlovDb, getTanlovlar, getOneTanlov, 
 from database.testRequests import createTest, getTestToAdmin, getTestById, updateTestHolat
 from database.notificationRequests import createNotification, getTanlovNotifications, getTestNotifications
 from database.userRequests import getAllUsers
+from database.usertestRequests import getUserTesttoAdmin
 
 from helpers.bot import bot
 
@@ -215,6 +218,7 @@ async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
         await query.message.delete()
         if testholati:
             await query.message.answer("Ma'lumotlar saqlandi.")
+            await state.clear()
             return
         else:
             await query.message.answer("Ma'lumotni saqlashda hatolikga yuz keldik.")
@@ -366,8 +370,19 @@ async def testholatiHolatlari(query: CallbackQuery):
         await query.message.answer("Bajarildi")
         return
     elif holat == '4': #Ishtirokchilar ro'yxatini chiqarish
-        await query.answer("ok")
+        users = getUserTesttoAdmin(test_id=testid)
+        if len(users)>0:
 
+        # print("users", users)
+            datafr = pd.DataFrame(users)
+            datafr.to_excel(f"natija_test_{testid}.xlsx", index=False)
+            file = FSInputFile(f"natija_test_{testid}.xlsx")
+            await query.message.answer_document(document=file, caption="Ishtirokchilar ro'yxati");
+            os.remove(f"natija_test_{testid}.xlsx")
+            await query.answer("ok")
+        else:
+            await query.answer("ok")
+            await query.message.answer("Kechirasiz hozircha ishtirokchilar mavjud emas.")
 
 
 
@@ -422,3 +437,34 @@ async def tanlovholatiTanlov(query: CallbackQuery):
 @admin.message(F.text=="Bot haqida ma'lumot")
 async def aboutbot(message: Message):
     await message.answer("Bu bot test yaratuvchilar va uni bajaruvchilar uchun ishlangan bepul bot hisoblanadi. Ushbu botni admin tomonidan boshqariladi va barchaga birdek foydalanish uchun yaratildi")
+
+
+# db dagi barcha datalarni olish
+from database.chaqirRequests import getForUserDataAllAll
+from database.testRequests import getAllAllTest
+from database.userRequests import getAllAllUsers
+from database.usertestRequests import getAllAlluserTestUser
+
+@admin.message(F.text == "Upload all data xlsx")
+async def getalldatatoxlsx(message: Message):
+    chaqir = getForUserDataAllAll()
+    testlar = getAllAllTest()
+    userlar = getAllAllUsers()
+    testrequest = getAllAlluserTestUser()
+    df1=pd.DataFrame(chaqir)
+    df2=pd.DataFrame(testlar)
+    df3=pd.DataFrame(userlar)
+    df4=pd.DataFrame(testrequest)
+    df1.to_excel(f"taklifqilinganlar.xlsx", index=False)
+    df2.to_excel(f"testlar.xlsx", index=False)
+    df3.to_excel(f"foydalanuvchilar.xlsx", index=False)
+    df4.to_excel(f"test_ishtirokchilari.xlsx", index=False)
+    await message.answer_document(FSInputFile(f"taklifqilinganlar.xlsx"))
+    await message.answer_document(FSInputFile(f"testlar.xlsx"))
+    await message.answer_document(FSInputFile(f"foydalanuvchilar.xlsx"))
+    await message.answer_document(FSInputFile(f"test_ishtirokchilari.xlsx"))
+    await message.answer_document(FSInputFile("database.db"))
+    os.remove(f"test_ishtirokchilari.xlsx")
+    os.remove(f"foydalanuvchilar.xlsx")
+    os.remove(f"testlar.xlsx")
+    os.remove(f"taklifqilinganlar.xlsx")

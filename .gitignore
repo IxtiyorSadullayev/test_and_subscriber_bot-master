@@ -1,6 +1,7 @@
 __pycache__
 __pycache__/
 config.py
+database.db
 mukam_bot.db
 env/
 venv/

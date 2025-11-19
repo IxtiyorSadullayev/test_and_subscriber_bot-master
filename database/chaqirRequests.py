@@ -3,7 +3,7 @@ import sqlite3
 
 def createChaqirData(tg_id: int, client_id: int):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
             cursor.execute("""
     INSERT INTO chaqiruv (tg_id, client_id)
@@ -17,7 +17,7 @@ def createChaqirData(tg_id: int, client_id: int):
 
 def getForUserData(tg_id: int):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
             cursor.execute("""
@@ -25,6 +25,20 @@ def getForUserData(tg_id: int):
 """, (tg_id, ))
             data = cursor.fetchall()
             return len(data)
+    except Exception as e:
+        print("Chaqiruv jadvalidagi ma'lumotlarni olishda hatolik mavjud.", e)
+        return False
+    
+def getForUserDataAllAll():
+    try:
+        with sqlite3.connect("database.db") as db:
+            db.row_factory = sqlite3.Row
+            cursor = db.cursor()
+            cursor.execute("""
+    SELECT * FROM chaqiruv
+""",)
+            data = cursor.fetchall()
+            return [dict(row) for row in data]
     except Exception as e:
         print("Chaqiruv jadvalidagi ma'lumotlarni olishda hatolik mavjud.", e)
         return False

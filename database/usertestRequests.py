@@ -2,7 +2,7 @@ import sqlite3
 
 def createuserTest(tg_id: int, test_id: int, answers: str, score: int, result:str):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
             cursor.execute("""
     INSERT INTO usertest (tg_id, test_id, answers, score, result)
@@ -17,10 +17,13 @@ def createuserTest(tg_id: int, test_id: int, answers: str, score: int, result:st
 
 def getUserTesttoAdmin(test_id):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
-            cursor.execute("SELECT * FROM usertest WHERE test_id = ?", (test_id, ))
+            cursor.execute("""
+            SELECT tu.id, u.fullname, u.phoneNumber, tu.test_id, tu.answers, tu.result, tu.score, tu.created  FROM usertest as tu
+            JOIN user as u ON tu.tg_id = u.tg_id
+            WHERE tu.test_id = ?""", (test_id, ))
             testlar = cursor.fetchall()
             return [dict(row) for row in testlar] if testlar else []
     except Exception as e:
@@ -29,7 +32,7 @@ def getUserTesttoAdmin(test_id):
 
 def getUserTesttoUserTest(tg_id):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
             cursor.execute("SELECT * FROM usertest WHERE tg_id = ?", (tg_id, ))
@@ -41,7 +44,7 @@ def getUserTesttoUserTest(tg_id):
 
 def getTekshiruvTestUser(tg_id:int, test_id:int):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
             cursor.execute("SELECT * FROM usertest WHERE tg_id = ? AND test_id = ?", (tg_id,test_id, ))
@@ -49,6 +52,17 @@ def getTekshiruvTestUser(tg_id:int, test_id:int):
             if len(testlar)>0:
                 return False
             return True
+    except Exception as e:
+        print("testlarni foydalanuvchi sifatida ko'rishda hatolik mavjud, ", e)
+        return False
+def getAllAlluserTestUser():
+    try:
+        with sqlite3.connect("database.db") as db:
+            db.row_factory = sqlite3.Row
+            cursor = db.cursor()
+            cursor.execute("SELECT * FROM usertest ",)
+            testlar = cursor.fetchall()
+            return [dict(row) for row in testlar]
     except Exception as e:
         print("testlarni foydalanuvchi sifatida ko'rishda hatolik mavjud, ", e)
         return False

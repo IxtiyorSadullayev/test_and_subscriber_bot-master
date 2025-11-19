@@ -3,7 +3,7 @@ import sqlite3
 
 def createNotification(tg_id: int, test_id: int, tanlov_id: int, holat: str):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
             cursor.execute("""
     INSERT INTO notification (tg_id, test_id, tanlov_id, holat)
@@ -17,7 +17,7 @@ def createNotification(tg_id: int, test_id: int, tanlov_id: int, holat: str):
 
 def getTestNotifications(test_id: int):
     try: 
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
             cursor.execute("""
@@ -33,7 +33,7 @@ def getTestNotifications(test_id: int):
     
 def getTanlovNotifications(tanlov_id: int):
     try: 
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row
             cursor = db.cursor()
             cursor.execute("""

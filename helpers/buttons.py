@@ -19,7 +19,8 @@ btnsUser = ReplyKeyboardMarkup(
 btnsAdmin = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Test yaratish"), KeyboardButton(text="Tanlov yaratish")],
-        [KeyboardButton(text="Hisobot"), KeyboardButton(text="Bot haqida ma'lumot")] 
+        [KeyboardButton(text="Hisobot"), KeyboardButton(text="Bot haqida ma'lumot")],
+        [KeyboardButton(text="Upload all data xlsx")] 
     ],
     resize_keyboard=True,
     input_field_placeholder="Biror kamandani tanlang!"

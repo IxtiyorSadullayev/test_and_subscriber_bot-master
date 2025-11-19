@@ -10,7 +10,7 @@ TUGADI
 
 def createTanlovDb(name:str, description:str, image:str, started_date:str, end_date:str, published:str):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
             cursor.execute("""
     INSERT INTO tanlov (name, description, image, started_date, end_date, published)
@@ -25,7 +25,7 @@ def createTanlovDb(name:str, description:str, image:str, started_date:str, end_d
 
 def getAllTanlov():
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row  
             cursor = db.cursor()
             cursor.execute("SELECT * FROM tanlov")
@@ -39,7 +39,7 @@ def getAllTanlov():
 
 def getTanlovlar(published: str):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row  
             cursor = db.cursor()
             cursor.execute("SELECT * FROM tanlov WHERE published = ?", (published, ))
@@ -52,7 +52,7 @@ def getTanlovlar(published: str):
 
 def getOneTanlov(tanlov_id: int):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             db.row_factory = sqlite3.Row 
             cursor = db.cursor()
             tanlov = cursor.execute("SELECT * FROM tanlov WHERE id = ?", (tanlov_id,)).fetchone()
@@ -63,7 +63,7 @@ def getOneTanlov(tanlov_id: int):
     
 def updateTanlovHolati(tanlov_id: int, published:str):
     try:
-        with sqlite3.connect("mukam_bot.db") as db:
+        with sqlite3.connect("database.db") as db:
             cursor = db.cursor()
             cursor.execute("UPDATE tanlov SET published = ? WHERE id = ?", (published, tanlov_id,))
             db.commit()

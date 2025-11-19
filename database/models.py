@@ -1,7 +1,7 @@
 import sqlite3 
 
 def createUser_table():
-    db = sqlite3.connect("mukam_bot.db")
+    db = sqlite3.connect("database.db")
     cursor = db.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS user(
@@ -20,7 +20,7 @@ def createUser_table():
     db.close()
 
 def createTanlov():
-    db = sqlite3.connect("mukam_bot.db")
+    db = sqlite3.connect("database.db")
     cursor = db.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS tanlov(
@@ -41,7 +41,7 @@ def createTanlov():
 
 
 def createTest():
-    db = sqlite3.connect("mukam_bot.db")
+    db = sqlite3.connect("database.db")
     cursor = db.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS test(
@@ -59,7 +59,7 @@ def createTest():
     db.close()
 
 def createUserTest():
-    db = sqlite3.connect("mukam_bot.db")
+    db = sqlite3.connect("database.db")
     cursor = db.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS usertest(
@@ -77,7 +77,7 @@ def createUserTest():
     db.close() 
 
 def createNotification():
-    db = sqlite3.connect("mukam_bot.db")
+    db = sqlite3.connect("database.db")
     cursor = db.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS notification(
@@ -91,7 +91,7 @@ def createNotification():
 """) 
     
 def createChaqiruv():
-    db = sqlite3.connect("mukam_bot.db")
+    db = sqlite3.connect("database.db")
     cursor = db.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS chaqiruv(
