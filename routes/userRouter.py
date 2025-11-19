@@ -114,7 +114,9 @@ async def testAnswerfromUser_answers(message: Message, state: FSMContext):
     # Javoblarni tekshirish jarayoni.
 
     await state.update_data(answers = ",".join(javob_korinishi))
-    await message.answer(f"Javoblaringizni tekshirib ko'ring. Javoblar: \n{", ".join(javob_korinishi)}", reply_markup=yes_or_no("user"))
+    # await message.answer(f"Javoblaringizni tekshirib ko'ring. Javoblar: \n{", ".join(javob_korinishi)}", reply_markup=yes_or_no("user"))
+    await message.answer(f"Javoblaringizni tekshirib ko'ring. Javoblar: \n{', '.join(javob_korinishi)}", reply_markup=yes_or_no("user"))
+
     await state.set_state(TestAnswersFromUser.tekshiruv)
 
     # user test kalitlarini kiritish jarayoni
