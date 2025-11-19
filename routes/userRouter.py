@@ -68,7 +68,12 @@ async def testAnswerfromUser_test_code(message: Message, state: FSMContext):
         return
     await state.update_data(test_code = test_code)
     await state.update_data(count_question=test.get("count_question"))
-    await message.answer_document(test.get("test_file"), caption=f"Ushbu testda jami {test.get("count_question")} ta test mavjud.")
+    # await message.answer_document(test.get("test_file"), caption=f"Ushbu testda jami {test.get("count_question")} ta test mavjud.")
+    await message.answer_document(
+    test.get("test_file"),
+    caption=f"Ushbu testda jami {test.get('count_question')} ta test mavjud."
+)
+
     await message.answer("""Test javoblarini kiriting: 
                          Test javoblarini quyidagi shaklda yozishingiz mumkin:
 🔹 absd...
