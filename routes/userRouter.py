@@ -161,7 +161,9 @@ async def mynatijalar(message: Message):
     text+=f"Hurmatli bot foydalanuvchisi. Siz jami {len(testlar)} ta testda ishtirok etgansiz.\n"
     for i in range(len(testlar)):
         natija = testlar[i].get("score")/len(testlar[i].get("answers").split(","))
-        text += f"{i+1}. Test id:{testlar[i].get("test_id")} -> {f"{(natija*100):.2f}"}% ko'rsatgich.\n"
+        # text += f"{i+1}. Test id:{testlar[i].get("test_id")} -> {f"{(natija*100):.2f}"}% ko'rsatgich.\n"
+        text += f"{i+1}. Test id:{testlar[i].get('test_id')} -> {((natija*100)):.2f}% ko'rsatgich.\n"
+
     await message.answer(text=text)
 
 @user.message(F.text=="Yig'gan odamlarim")
