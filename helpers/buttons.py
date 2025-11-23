@@ -87,6 +87,10 @@ def testholatiniyangilash(test_id:int):
                 [InlineKeyboardButton(text="Complated qilish", callback_data=f"testholati_3_{test_id}"),
             ], [
                 InlineKeyboardButton(text="Ishtirokchilar", callback_data=f"testholati_4_{test_id}")
+            ], [
+                InlineKeyboardButton(text="Ma'lumotlarni o'zgaritirsh", callback_data=f"testholati_5_{test_id}")
+            ],[
+                InlineKeyboardButton(text="Testni o'chirish", callback_data=f"testholati_6_{test_id}")
             ]
         ]
     )

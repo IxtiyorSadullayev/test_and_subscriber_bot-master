@@ -20,7 +20,12 @@ async def runBot():
     createTest()
     createNotification()
     createChaqiruv()
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+    filename="app.log",
+    level=logging.DEBUG,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
     dp.include_router(startRouter)
     dp.include_router(user)
     dp.include_router(admin)

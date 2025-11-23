@@ -74,3 +74,31 @@ def updateTestHolat(test_id: int, published:str):
         print("Testni olishda hatolik mavjud. ", e)
         return False
     
+
+def updateTest(test_id: int, count_question: int, answers: str):
+    try:
+        with sqlite3.connect("database.db") as db:
+            cursor = db.cursor()
+            cursor.execute("""
+                UPDATE test 
+                SET count_question = ?, answers = ?
+                WHERE id = ?
+            """, (count_question, answers, test_id))
+            db.commit()
+            return True
+    except Exception as e:
+        print("Testni o'zgartirishda hatolik mavjud:", e)
+        return False
+
+def deleteTest(test_id:int):
+    try:   
+        with sqlite3.connect("database.db") as db:
+            cursor = db.cursor()
+            cursor.execute("""
+    DELETE FROM test  WHERE id = ?
+""", ( test_id,  ))
+            db.commit()
+            return True
+    except Exception as e:
+        print("Testni o'chirishda hatolik mavjud. ", e)
+        return False

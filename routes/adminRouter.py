@@ -5,7 +5,7 @@ import asyncio
 import pandas as pd
 import re
 import os
-from states.adminState import Admin, AdminTanlov, TestCreate, AdminHisobotHolat
+from states.adminState import Admin, AdminTanlov, TestCreate, AdminHisobotHolat, AdminTestUpdate
 
 # button 
 from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tanlovlistBtns, testholatiniyangilash, tanlovholatiniyangilash
@@ -13,7 +13,7 @@ from helpers.buttons import yes_or_no, adminHisobot, holatlar, testlistBtns, tan
 
 # db
 from database.tanlovRequests import createTanlovDb, getTanlovlar, getOneTanlov, updateTanlovHolati
-from database.testRequests import createTest, getTestToAdmin, getTestById, updateTestHolat
+from database.testRequests import createTest, getTestToAdmin, getTestById, updateTestHolat, updateTest, deleteTest
 from database.notificationRequests import createNotification, getTanlovNotifications, getTestNotifications
 from database.userRequests import getAllUsers
 from database.usertestRequests import getUserTesttoAdmin
@@ -197,6 +197,10 @@ async def adminTest_answers(message: Message, state: FSMContext):
     # test javoblarini kiritish jarayoni.
     await state.update_data(answers = ",".join(javob_korinishi))
     test_file=data.get("test_file")
+    print("data data data", data.get("update"))
+    if data.get("update"):
+        test= getTestById(test_id=int(data.get("update").split("_")[1]))
+        test_file=test.get("test_file")
     await message.answer("Javoblaringizni qabul qildik. Ma'lumotlarinigizni tekshirib ko'ring")
     text_content=""
     text_content+="Test savollar soni: "+count_questions + "\n"
@@ -207,6 +211,7 @@ async def adminTest_answers(message: Message, state: FSMContext):
 
 @admin.callback_query(TestCreate.tekshiruv)
 async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
+    
     if query.data == "admintestyes":
         await query.answer("Ok")
         data = await state.get_data()
@@ -214,6 +219,18 @@ async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
         file_type=data.get("file_type")
         count_question=data.get("count_questions")
         answers = data.get("answers")
+        if data.get("update"):
+            te = updateTest(int(data.get("update").split('_')[1]), count_question=int(count_question), answers=answers)
+            if te:
+                await query.message.answer("Ma'lumotlar o'zgartirildi.")
+                await state.clear()
+                return
+            else:
+                await query.message.answer("Ma'lumotni saqlashda hatolikga yuz keldik.")
+                await state.clear()                                                         
+                return
+        await state.clear()   
+        print("Bu tarafi ishlamasligi kerak update da")
         testholati = createTest(test_file=test_file, file_type=file_type, count_question=int(count_question), answers=answers, published="JARAYONDA")
         await query.message.delete()
         if testholati:
@@ -226,6 +243,10 @@ async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
         
         return 
     elif query.data == "admintestno":
+        if data.get("update"):
+            await query.answer("Ok")
+            await query.message.answer("O'zgartirish bekor qilindi. Amaliyotni boshqatdan boshlashingiz mumkin")
+            return
         await query.answer("ok")
         await query.message.answer("Test faylini kiriting: ")
         await state.set_state(TestCreate.test_file)
@@ -334,7 +355,7 @@ async def testholatlarinitaqdimqilish(query: CallbackQuery):
     
 
 @admin.callback_query(F.data.startswith("testholati"))
-async def testholatiHolatlari(query: CallbackQuery):
+async def testholatiHolatlari(query: CallbackQuery, state: FSMContext):
     holat = query.data.split("_")[1]
     testid = int(query.data.split("_")[-1])
     if holat == '1': #Jarayonda qilish
@@ -342,12 +363,14 @@ async def testholatiHolatlari(query: CallbackQuery):
         updateTestHolat(test_id=testid, published="JARAYONDA")
         await query.message.delete()
         await query.message.answer("Bajarildi")
+        await state.clear()
         return
     elif holat == '2': #Aktive qilish
         await query.answer("ok")
         updateTestHolat(test_id=testid, published="ACTIVE")
         # bu yerda barcha userlarga yuborish kerak edi.
         users = getAllUsers()
+        await state.clear()
         if not users:
             pass
         else:
@@ -368,25 +391,42 @@ async def testholatiHolatlari(query: CallbackQuery):
         updateTestHolat(test_id=testid, published="COMPLATED")
         await query.message.delete()
         await query.message.answer("Bajarildi")
+        await state.clear()
         return
     elif holat == '4': #Ishtirokchilar ro'yxatini chiqarish
         users = getUserTesttoAdmin(test_id=testid)
+        await state.clear()
         if len(users)>0:
 
         # print("users", users)
             datafr = pd.DataFrame(users)
             datafr.to_excel(f"natija_test_{testid}.xlsx", index=False)
             file = FSInputFile(f"natija_test_{testid}.xlsx")
-            await query.message.answer_document(document=file, caption="Ishtirokchilar ro'yxati");
+            await query.message.answer_document(document=file, caption="Ishtirokchilar ro'yxati")
             os.remove(f"natija_test_{testid}.xlsx")
             await query.answer("ok")
         else:
             await query.answer("ok")
             await query.message.answer("Kechirasiz hozircha ishtirokchilar mavjud emas.")
-
-
-
-
+    elif holat == '5': # ma'lumotlarni o'zgartirish oynasi
+        # update qilish jarayonini shakillantirish.
+        test = getTestById(testid)
+        await query.answer("ok")
+        await query.message.answer("Test o'zgartirish faollashdi. \nTest faylini o'zgartira olmaysiz. Lekin boshqa ma'lumotlarni o'zgaritirishingiz mumkin.\n\nTestlar sonini kiriting")
+        await state.update_data(update=f"test_{test.get('id')}")
+        await state.set_state(TestCreate.count_questions)
+        
+    elif holat == '6': # ma'lumotni o'chirish
+        await query.message.delete()
+        await query.answer("ok")
+        te = deleteTest(test_id=int(testid))
+        if te:
+            await query.message.answer("Ma'lumotlar o'zgartirildi.")
+            await state.clear()
+            return
+        else:
+            await query.message.answer("Ma'lumotni saqlashda hatolikga yuz keldik.")
+            await state.clear()
 
 
 
@@ -468,3 +508,9 @@ async def getalldatatoxlsx(message: Message):
     os.remove(f"foydalanuvchilar.xlsx")
     os.remove(f"testlar.xlsx")
     os.remove(f"taklifqilinganlar.xlsx")
+
+
+@admin.message(F.text=="getlogs")
+async def getlogs(message: Message):
+    file = FSInputFile('app.log')
+    await message.answer_document(document=file)

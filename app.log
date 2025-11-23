@@ -1,0 +1,85 @@
+2025-11-23 21:58:26 | INFO | aiogram.dispatcher | Start polling
+2025-11-23 21:58:26 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-23 21:58:32 | INFO | aiogram.event | Update id=277432226 is handled. Duration 577 ms by bot id=7751513709
+2025-11-23 21:58:35 | INFO | aiogram.event | Update id=277432227 is handled. Duration 170 ms by bot id=7751513709
+2025-11-23 21:58:38 | INFO | aiogram.event | Update id=277432228 is handled. Duration 203 ms by bot id=7751513709
+2025-11-23 21:58:40 | INFO | aiogram.event | Update id=277432229 is handled. Duration 562 ms by bot id=7751513709
+2025-11-23 21:58:42 | INFO | aiogram.event | Update id=277432230 is handled. Duration 422 ms by bot id=7751513709
+2025-11-23 21:58:44 | INFO | aiogram.event | Update id=277432231 is handled. Duration 203 ms by bot id=7751513709
+2025-11-23 21:58:46 | INFO | aiogram.event | Update id=277432232 is handled. Duration 188 ms by bot id=7751513709
+2025-11-23 21:58:47 | INFO | aiogram.event | Update id=277432233 is handled. Duration 217 ms by bot id=7751513709
+2025-11-23 21:58:48 | INFO | aiogram.event | Update id=277432234 is handled. Duration 217 ms by bot id=7751513709
+2025-11-23 21:58:50 | INFO | aiogram.event | Update id=277432235 is handled. Duration 202 ms by bot id=7751513709
+2025-11-23 21:59:07 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-23 21:59:07 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-23 21:59:07 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-23 21:59:07 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-23 22:01:03 | INFO | aiogram.dispatcher | Start polling
+2025-11-23 22:01:03 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-23 22:01:09 | INFO | aiogram.event | Update id=277432236 is not handled. Duration 16 ms by bot id=7751513709
+2025-11-23 22:01:09 | ERROR | aiogram.event | Cause exception while process update id=277432236 by bot id=7751513709
+TypeError: Message.answer_document() missing 1 required positional argument: 'document'
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\User\Desktop\Matematika_Mukam\test_and_subscriber_bot-master\routes\adminRouter.py", line 516, in getlogs
+    await message.answer_document(file=file)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Message.answer_document() missing 1 required positional argument: 'document'
+2025-11-23 22:01:36 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-23 22:01:36 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-23 22:01:36 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-23 22:01:37 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-23 22:01:48 | INFO | aiogram.dispatcher | Start polling
+2025-11-23 22:01:48 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-23 22:01:49 | INFO | aiogram.event | Update id=277432237 is handled. Duration 812 ms by bot id=7751513709
+2025-11-23 22:02:13 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-23 22:02:13 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-23 22:02:13 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-23 22:02:14 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
