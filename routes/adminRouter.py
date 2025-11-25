@@ -25,6 +25,8 @@ admin = Router()
 
 @admin.message(F.text=="Tanlov yaratish")
 async def createTanlov(message: Message, state: FSMContext):
+    
+    
     await message.answer("Yaratmoqchi bo'lgan tanlovingizni nomini yozib qoldiring: ")
     await state.set_state(AdminTanlov.name)
 
@@ -33,6 +35,10 @@ async def createTanlov(message: Message, state: FSMContext):
 ###########################################################################################################
 @admin.message(AdminTanlov.name)
 async def adminTanlov_name(message: Message, state: FSMContext):
+    if (message.text in [ "📊 *Hisobotlar*", "ℹ️ *Bot haqida ma’lumot*", "📂 *Ma’lumotlarni yuklash (XLSX)*"]):
+        await state.clear()
+        await message.answer("Qaysi bo'lim haqida ma'lumot olmoqchisiz ?", reply_markup=adminHisobot)
+        return
     name_tanlov = message.text 
     if len(name_tanlov)<3:
         await message.answer("Yaratmoqchi bo'lgan tanlovingizni nomini yozib qoldiring: ")
@@ -129,8 +135,9 @@ async def adminTanlov_tekshiruv(query: CallbackQuery, state: FSMContext):
 ###########################################################################################################
 ###########################################################################################################
 ###########################################################################################################
-@admin.message(F.text=="Test yaratish")
+@admin.message(F.text=="🛠 *Test yaratish*")
 async def adminCreate_test(message: Message, state: FSMContext):
+    await state.clear()
     await message.answer("Yaratmoqchi bo'lgan testingizni faylini yuboring: ")
     await state.set_state(TestCreate.test_file)
     # admin tomonidan qandayda bir tanlov yaratish uchun imkoniyat taqdim qilish 
@@ -139,6 +146,10 @@ async def adminCreate_test(message: Message, state: FSMContext):
 ###########################################################################################################
 @admin.message(TestCreate.test_file)
 async def adminTest_test_file(message: Message, state: FSMContext):
+    if (message.text in [ "📊 *Hisobotlar*", "ℹ️ *Bot haqida ma’lumot*", "📂 *Ma’lumotlarni yuklash (XLSX)*"]):
+        await state.clear()
+        await message.answer("Qaysi bo'lim haqida ma'lumot olmoqchisiz ?", reply_markup=adminHisobot)
+        return
     if not message.document:
         await message.answer("Yaratmoqchi bo'lgan testingizni faylini yuboring: ")
         await state.set_state(TestCreate.test_file)
@@ -256,8 +267,9 @@ async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
 ###########################################################################################################
 ###########################################################################################################
 ###########################################################################################################
-@admin.message(F.text == "Hisobot")
+@admin.message(F.text == "📊 *Hisobotlar*")
 async def adminCreate_hisobot(message: Message, state: FSMContext):
+    await state.clear()
     await message.answer("Qaysi bo'lim haqida ma'lumot olmoqchisiz ?", reply_markup=adminHisobot)
     # admin tomonidan tayorlangan hisobotlarni ko'rish jarayoni.
 
@@ -474,8 +486,9 @@ async def tanlovholatiTanlov(query: CallbackQuery):
     
 
 
-@admin.message(F.text=="Bot haqida ma'lumot")
-async def aboutbot(message: Message):
+@admin.message(F.text=="ℹ️ *Bot haqida ma’lumot*")
+async def aboutbot(message: Message, state: FSMContext):
+    await state.clear()
     await message.answer("Bu bot test yaratuvchilar va uni bajaruvchilar uchun ishlangan bepul bot hisoblanadi. Ushbu botni admin tomonidan boshqariladi va barchaga birdek foydalanish uchun yaratildi")
 
 
@@ -485,8 +498,9 @@ from database.testRequests import getAllAllTest
 from database.userRequests import getAllAllUsers
 from database.usertestRequests import getAllAlluserTestUser
 
-@admin.message(F.text == "Upload all data xlsx")
-async def getalldatatoxlsx(message: Message):
+@admin.message(F.text == "📂 *Ma’lumotlarni yuklash (XLSX)*")
+async def getalldatatoxlsx(message: Message, state: FSMContext):
+    await state.clear()
     chaqir = getForUserDataAllAll()
     testlar = getAllAllTest()
     userlar = getAllAllUsers()
@@ -511,6 +525,7 @@ async def getalldatatoxlsx(message: Message):
 
 
 @admin.message(F.text=="getlogs")
-async def getlogs(message: Message):
+async def getlogs(message: Message, state: FSMContext):
+    await state.clear()
     file = FSInputFile('app.log')
     await message.answer_document(document=file)

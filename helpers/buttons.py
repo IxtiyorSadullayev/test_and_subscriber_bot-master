@@ -2,25 +2,25 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardBut
 
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-userButtons = ["Test ishlash", "Tanlovlar", "Bot haqida ma'lumot"]
+userButtons = ["📝 Test ishlash", "📌 Tanlovlar", "ℹ️ *Bot haqida ma’lumot*"]
 
 adminButtons = ["Talnov yaratish", "Test yaratish", "Hisobot"]
  
 
 btnsUser = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text="Test ishlash")],
-        [KeyboardButton(text="Taklif havolam"), KeyboardButton(text="Yig'gan odamlarim")],
-        [KeyboardButton(text="Natijalarim"), KeyboardButton(text="Bot haqida ma'lumot")] 
+        [KeyboardButton(text="📝 Test ishlash")],
+        [KeyboardButton(text="🔗 Taklif havolam"), KeyboardButton(text="👨‍👩‍👧‍👦 Yig'gan Odamlarim 🤝")],
+        [KeyboardButton(text="📉 Natijalarim"), KeyboardButton(text="ℹ️ *Bot haqida ma’lumot*")] 
     ],
     resize_keyboard=True,
     input_field_placeholder="Biror kamandani tanlang!"
 )
 btnsAdmin = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text="Test yaratish"), KeyboardButton(text="Tanlov yaratish")],
-        [KeyboardButton(text="Hisobot"), KeyboardButton(text="Bot haqida ma'lumot")],
-        [KeyboardButton(text="Upload all data xlsx")] 
+        [KeyboardButton(text="🛠 *Test yaratish*") ],
+        [KeyboardButton(text="📊 *Hisobotlar*"), KeyboardButton(text="ℹ️ *Bot haqida ma’lumot*")],
+        [KeyboardButton(text="📂 *Ma’lumotlarni yuklash (XLSX)*")] 
     ],
     resize_keyboard=True,
     input_field_placeholder="Biror kamandani tanlang!"
@@ -39,8 +39,7 @@ def yes_or_no(type:str):
 adminHisobot = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text="Testlar", callback_data='admin_test'),
-            InlineKeyboardButton(text="Tanlovlar", callback_data='admin_tanlov'),
+            InlineKeyboardButton(text="📚 Testlar", callback_data='admin_test'),
         ]
     ]
 )
@@ -48,9 +47,9 @@ adminHisobot = InlineKeyboardMarkup(
 holatlar = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text="JARAYONDA", callback_data="jarayonda"),
-            InlineKeyboardButton(text="ACTIVE", callback_data="active"),
-            InlineKeyboardButton(text="COMPLATED", callback_data="complated"),
+            InlineKeyboardButton(text="⏳ Jarayonda", callback_data="jarayonda"),
+            InlineKeyboardButton(text="⚡ A C T I V E 🚀", callback_data="active"),
+            InlineKeyboardButton(text="🎉 COMPLETED 🎊", callback_data="complated"),
         ]
     ]
 )
@@ -82,15 +81,15 @@ def testholatiniyangilash(test_id:int):
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="Jarayonda qilish", callback_data=f"testholati_1_{test_id}")],
-                [InlineKeyboardButton(text="Active qilish", callback_data=f"testholati_2_{test_id}")],
-                [InlineKeyboardButton(text="Complated qilish", callback_data=f"testholati_3_{test_id}"),
+                InlineKeyboardButton(text="⚡ Jarayonda qilish 🛠️", callback_data=f"testholati_1_{test_id}")],
+                [InlineKeyboardButton(text="⚡ Active qilish jarayoni", callback_data=f"testholati_2_{test_id}")],
+                [InlineKeyboardButton(text="✔️ Completed qilish", callback_data=f"testholati_3_{test_id}"),
             ], [
-                InlineKeyboardButton(text="Ishtirokchilar", callback_data=f"testholati_4_{test_id}")
+                InlineKeyboardButton(text="🎪 ISHTIROKCHILAR 👥", callback_data=f"testholati_4_{test_id}")
             ], [
-                InlineKeyboardButton(text="Ma'lumotlarni o'zgaritirsh", callback_data=f"testholati_5_{test_id}")
+                InlineKeyboardButton(text="📝 Ma'lumotlarni O'zgartirish ✏️", callback_data=f"testholati_5_{test_id}")
             ],[
-                InlineKeyboardButton(text="Testni o'chirish", callback_data=f"testholati_6_{test_id}")
+                InlineKeyboardButton(text="❌ Testni o'chirish", callback_data=f"testholati_6_{test_id}")
             ]
         ]
     )
@@ -98,12 +97,12 @@ def tanlovholatiniyangilash(test_id:int):
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="Jarayonda qilish", callback_data=f"tanlovholati_1_{test_id}")],
-            [InlineKeyboardButton(text="Active qilish", callback_data=f"tanlovholati_2_{test_id}")],
-                [InlineKeyboardButton(text="Complated qilish", callback_data=f"tanlovholati_3_{test_id}"),
+                InlineKeyboardButton(text="⚡ Jarayonda qilish 🛠️", callback_data=f"tanlovholati_1_{test_id}")],
+            [InlineKeyboardButton(text="⚡ Active qilish jarayoni", callback_data=f"tanlovholati_2_{test_id}")],
+                [InlineKeyboardButton(text="✔️ Completed qilish", callback_data=f"tanlovholati_3_{test_id}"),
             ],
             [
-                InlineKeyboardButton(text="Ishtirokchilar", callback_data=f"tanlovholati_4_{test_id}")
+                InlineKeyboardButton(text="🎪 ISHTIROKCHILAR 👥", callback_data=f"tanlovholati_4_{test_id}")
 
             ]
         ]

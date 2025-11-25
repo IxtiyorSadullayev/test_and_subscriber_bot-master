@@ -21,8 +21,9 @@ from helpers.buttons import yes_or_no
 
 user = Router()
 
-@user.message(F.text == "Taklif havolam")
-async def taklifHavolasi(message: Message):
+@user.message(F.text == "🔗 Taklif havolam")
+async def taklifHavolasi(message: Message, state: FSMContext):
+    await state.clear()
     tg_id = message.from_user.id
     text = f"""Sizning taklif havolangiz:
     "Ushbu taklif havolani boshqalarga yuborishingiz mumkin: 
@@ -36,11 +37,12 @@ async def taklifHavolasi(message: Message):
 
 
 
-@user.message(F.text == "Test ishlash")
+@user.message(F.text == "📝 Test ishlash")
 async def userActions_work_test(message: Message, state: FSMContext):
+    await state.clear()
     await message.answer("Test kodini kiriting. Test kodi raqam bo'lishi kerak.")
     await state.set_state(TestAnswersFromUser.test_code)
-    # user test ishlash jarayoni 
+    # user 📝 Test ishlash jarayoni 
 
 ###########################################################################################################
 ###########################################################################################################
@@ -80,7 +82,7 @@ async def testAnswerfromUser_test_code(message: Message, state: FSMContext):
 🔹 1a2b3c4d...""")
     await state.set_state(TestAnswersFromUser.answers)
 
-    # user test ishlash jarayoni test kodini so'rash jarayoni
+    # user 📝 Test ishlash jarayoni test kodini so'rash jarayoni
 
 @user.message(TestAnswersFromUser.answers)
 async def testAnswerfromUser_answers(message: Message, state: FSMContext):
@@ -159,12 +161,13 @@ async def testAnswerfromUser_tekshiruv(query: CallbackQuery, state: FSMContext):
 🔹 1a2b3c4d...""")
         await state.set_state(TestAnswersFromUser.answers)
         return
-    # user test ishlash jarayoni test kodini so'rash jarayoni tugagandan keyin tekshirish joyi.
+    # user 📝 Test ishlash jarayoni test kodini so'rash jarayoni tugagandan keyin tekshirish joyi.
     
 
 
-@user.message(F.text == "Natijalarim")
-async def mynatijalar(message: Message):
+@user.message(F.text == "📉 Natijalarim")
+async def mynatijalar(message: Message, state: FSMContext):
+    await state.clear()
     tg_id = message.from_user.id
     testlar = getUserTesttoUserTest(tg_id=tg_id)
     text = ""
@@ -176,8 +179,9 @@ async def mynatijalar(message: Message):
 
     await message.answer(text=text)
 
-@user.message(F.text=="Yig'gan odamlarim")
-async def yigilganodamlarsoni(message: Message):
+@user.message(F.text=="👨‍👩‍👧‍👦 Yig'gan Odamlarim 🤝")
+async def yigilganodamlarsoni(message: Message, state: FSMContext):
+    await state.clear()
     tg_id = message.from_user.id
     data = getForUserData(tg_id=tg_id)
     if not data or data==0:

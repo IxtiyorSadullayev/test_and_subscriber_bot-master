@@ -83,3 +83,168 @@ TypeError: Message.answer_document() missing 1 required positional argument: 'do
 2025-11-23 22:02:13 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
 2025-11-23 22:02:13 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
 2025-11-23 22:02:14 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:23:01 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:23:02 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:23:40 | INFO | aiogram.event | Update id=277432238 is handled. Duration 1313 ms by bot id=7751513709
+2025-11-25 20:23:43 | INFO | aiogram.event | Update id=277432239 is handled. Duration 202 ms by bot id=7751513709
+2025-11-25 20:23:45 | INFO | aiogram.event | Update id=277432240 is handled. Duration 250 ms by bot id=7751513709
+2025-11-25 20:23:48 | INFO | aiogram.event | Update id=277432241 is handled. Duration 311 ms by bot id=7751513709
+2025-11-25 20:24:01 | INFO | aiogram.event | Update id=277432242 is handled. Duration 188 ms by bot id=7751513709
+2025-11-25 20:24:02 | INFO | aiogram.event | Update id=277432243 is handled. Duration 250 ms by bot id=7751513709
+2025-11-25 20:24:05 | INFO | aiogram.event | Update id=277432244 is handled. Duration 250 ms by bot id=7751513709
+2025-11-25 20:24:07 | INFO | aiogram.event | Update id=277432245 is handled. Duration 422 ms by bot id=7751513709
+2025-11-25 20:24:09 | INFO | aiogram.event | Update id=277432246 is handled. Duration 218 ms by bot id=7751513709
+2025-11-25 20:24:11 | INFO | aiogram.event | Update id=277432247 is handled. Duration 358 ms by bot id=7751513709
+2025-11-25 20:24:12 | INFO | aiogram.event | Update id=277432248 is handled. Duration 311 ms by bot id=7751513709
+2025-11-25 20:24:15 | INFO | aiogram.event | Update id=277432249 is handled. Duration 327 ms by bot id=7751513709
+2025-11-25 20:25:50 | INFO | aiogram.event | Update id=277432250 is handled. Duration 297 ms by bot id=7751513709
+2025-11-25 20:26:01 | INFO | aiogram.event | Update id=277432251 is handled. Duration 265 ms by bot id=7751513709
+2025-11-25 20:26:11 | INFO | aiogram.event | Update id=277432252 is handled. Duration 327 ms by bot id=7751513709
+2025-11-25 20:26:20 | INFO | aiogram.event | Update id=277432253 is handled. Duration 282 ms by bot id=7751513709
+2025-11-25 20:26:32 | INFO | aiogram.event | Update id=277432254 is handled. Duration 250 ms by bot id=7751513709
+2025-11-25 20:26:54 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:26:54 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:26:54 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:26:54 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:27:05 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:27:05 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:27:06 | INFO | aiogram.event | Update id=277432255 is handled. Duration 578 ms by bot id=7751513709
+2025-11-25 20:27:08 | INFO | aiogram.event | Update id=277432256 is handled. Duration 0 ms by bot id=7751513709
+2025-11-25 20:27:25 | INFO | aiogram.event | Update id=277432257 is handled. Duration 16 ms by bot id=7751513709
+2025-11-25 20:27:34 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:27:34 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:27:34 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:27:35 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:27:45 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:27:46 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:27:49 | INFO | aiogram.event | Update id=277432258 is handled. Duration 563 ms by bot id=7751513709
+2025-11-25 20:27:50 | INFO | aiogram.event | Update id=277432259 is handled. Duration 234 ms by bot id=7751513709
+2025-11-25 20:27:52 | INFO | aiogram.event | Update id=277432260 is handled. Duration 217 ms by bot id=7751513709
+2025-11-25 20:27:59 | INFO | aiogram.event | Update id=277432261 is handled. Duration 250 ms by bot id=7751513709
+2025-11-25 20:28:00 | INFO | aiogram.event | Update id=277432262 is handled. Duration 233 ms by bot id=7751513709
+2025-11-25 20:28:02 | INFO | aiogram.event | Update id=277432263 is handled. Duration 219 ms by bot id=7751513709
+2025-11-25 20:28:05 | INFO | aiogram.event | Update id=277432264 is handled. Duration 343 ms by bot id=7751513709
+2025-11-25 20:28:44 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:28:44 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:28:44 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:28:44 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:28:53 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:28:54 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:28:55 | INFO | aiogram.event | Update id=277432265 is handled. Duration 735 ms by bot id=7751513709
+2025-11-25 20:28:56 | INFO | aiogram.event | Update id=277432266 is handled. Duration 327 ms by bot id=7751513709
+2025-11-25 20:28:58 | INFO | aiogram.event | Update id=277432267 is handled. Duration 342 ms by bot id=7751513709
+2025-11-25 20:29:40 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:29:40 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:29:40 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:29:40 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:29:48 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:29:49 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:29:51 | INFO | aiogram.event | Update id=277432268 is handled. Duration 827 ms by bot id=7751513709
+2025-11-25 20:29:54 | INFO | aiogram.event | Update id=277432269 is handled. Duration 343 ms by bot id=7751513709
+2025-11-25 20:29:56 | INFO | aiogram.event | Update id=277432270 is handled. Duration 14 ms by bot id=7751513709
+2025-11-25 20:30:12 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:30:12 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:30:12 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:30:12 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:30:21 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:30:22 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:30:23 | INFO | aiogram.event | Update id=277432271 is handled. Duration 593 ms by bot id=7751513709
+2025-11-25 20:30:24 | INFO | aiogram.event | Update id=277432272 is handled. Duration 170 ms by bot id=7751513709
+2025-11-25 20:30:26 | INFO | aiogram.event | Update id=277432273 is handled. Duration 296 ms by bot id=7751513709
+2025-11-25 20:30:33 | INFO | aiogram.event | Update id=277432274 is handled. Duration 171 ms by bot id=7751513709
+2025-11-25 20:30:35 | INFO | aiogram.event | Update id=277432275 is handled. Duration 219 ms by bot id=7751513709
+2025-11-25 20:30:47 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:30:47 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:30:47 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:30:47 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:30:56 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:30:56 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:31:05 | INFO | aiogram.event | Update id=277432276 is handled. Duration 688 ms by bot id=7751513709
+2025-11-25 20:31:07 | INFO | aiogram.event | Update id=277432277 is handled. Duration 14 ms by bot id=7751513709
+2025-11-25 20:31:09 | INFO | aiogram.event | Update id=277432278 is handled. Duration 265 ms by bot id=7751513709
+2025-11-25 20:32:09 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:32:09 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:32:09 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:32:09 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:32:19 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 20:32:19 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 20:32:20 | INFO | aiogram.event | Update id=277432279 is handled. Duration 812 ms by bot id=7751513709
+2025-11-25 20:32:21 | INFO | aiogram.event | Update id=277432280 is handled. Duration 250 ms by bot id=7751513709
+2025-11-25 20:32:23 | INFO | aiogram.event | Update id=277432281 is handled. Duration 312 ms by bot id=7751513709
+2025-11-25 20:32:26 | INFO | aiogram.event | Update id=277432282 is handled. Duration 264 ms by bot id=7751513709
+2025-11-25 20:32:32 | INFO | aiogram.event | Update id=277432283 is handled. Duration 2812 ms by bot id=7751513709
+2025-11-25 20:32:40 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 20:32:40 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 20:32:40 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 20:32:40 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:03:09 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 21:03:13 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:03:15 | INFO | aiogram.event | Update id=277432284 is handled. Duration 938 ms by bot id=7751513709
+2025-11-25 21:03:17 | INFO | aiogram.event | Update id=277432285 is handled. Duration 311 ms by bot id=7751513709
+2025-11-25 21:03:23 | INFO | aiogram.event | Update id=277432286 is handled. Duration 311 ms by bot id=7751513709
+2025-11-25 21:03:25 | INFO | aiogram.event | Update id=277432287 is handled. Duration 312 ms by bot id=7751513709
+2025-11-25 21:03:30 | INFO | aiogram.event | Update id=277432288 is handled. Duration 796 ms by bot id=7751513709
+2025-11-25 21:03:32 | INFO | aiogram.event | Update id=277432289 is handled. Duration 421 ms by bot id=7751513709
+2025-11-25 21:04:33 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 21:04:33 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 21:04:33 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 21:04:33 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:04:42 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 21:04:43 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:04:45 | INFO | aiogram.event | Update id=277432290 is handled. Duration 812 ms by bot id=7751513709
+2025-11-25 21:04:46 | INFO | aiogram.event | Update id=277432291 is handled. Duration 327 ms by bot id=7751513709
+2025-11-25 21:04:49 | INFO | aiogram.event | Update id=277432292 is handled. Duration 312 ms by bot id=7751513709
+2025-11-25 21:04:51 | INFO | aiogram.event | Update id=277432293 is handled. Duration 436 ms by bot id=7751513709
+2025-11-25 21:04:52 | INFO | aiogram.event | Update id=277432294 is handled. Duration 358 ms by bot id=7751513709
+2025-11-25 21:04:54 | INFO | aiogram.event | Update id=277432295 is handled. Duration 391 ms by bot id=7751513709
+2025-11-25 21:04:55 | INFO | aiogram.event | Update id=277432296 is handled. Duration 358 ms by bot id=7751513709
+2025-11-25 21:05:17 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 21:05:17 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 21:05:17 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 21:05:17 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:05:26 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 21:05:28 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:05:29 | INFO | aiogram.event | Update id=277432297 is handled. Duration 906 ms by bot id=7751513709
+2025-11-25 21:05:31 | INFO | aiogram.event | Update id=277432298 is handled. Duration 391 ms by bot id=7751513709
+2025-11-25 21:05:37 | INFO | aiogram.event | Update id=277432299 is handled. Duration 5358 ms by bot id=7751513709
+2025-11-25 21:05:41 | INFO | aiogram.event | Update id=277432300 is handled. Duration 344 ms by bot id=7751513709
+2025-11-25 21:05:43 | INFO | aiogram.event | Update id=277432301 is handled. Duration 313 ms by bot id=7751513709
+2025-11-25 21:05:44 | INFO | aiogram.event | Update id=277432302 is handled. Duration 297 ms by bot id=7751513709
+2025-11-25 21:06:11 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 21:06:11 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 21:06:11 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 21:06:12 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:06:20 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 21:06:21 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:06:25 | INFO | aiogram.event | Update id=277432303 is handled. Duration 1170 ms by bot id=7751513709
+2025-11-25 21:06:27 | INFO | aiogram.event | Update id=277432304 is handled. Duration 296 ms by bot id=7751513709
+2025-11-25 21:06:29 | INFO | aiogram.event | Update id=277432305 is handled. Duration 391 ms by bot id=7751513709
+2025-11-25 21:06:31 | INFO | aiogram.event | Update id=277432306 is handled. Duration 421 ms by bot id=7751513709
+2025-11-25 21:06:32 | INFO | aiogram.event | Update id=277432307 is handled. Duration 406 ms by bot id=7751513709
+2025-11-25 21:07:29 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 21:07:29 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 21:07:29 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 21:07:29 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:07:37 | INFO | aiogram.dispatcher | Start polling
+2025-11-25 21:07:39 | INFO | aiogram.dispatcher | Run polling for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'
+2025-11-25 21:07:40 | INFO | aiogram.event | Update id=277432308 is handled. Duration 1155 ms by bot id=7751513709
+2025-11-25 21:07:42 | INFO | aiogram.event | Update id=277432309 is handled. Duration 297 ms by bot id=7751513709
+2025-11-25 21:07:44 | INFO | aiogram.event | Update id=277432310 is handled. Duration 375 ms by bot id=7751513709
+2025-11-25 21:07:59 | INFO | aiogram.event | Update id=277432311 is handled. Duration 14203 ms by bot id=7751513709
+2025-11-25 21:09:16 | INFO | aiogram.event | Update id=277432312 is handled. Duration 375 ms by bot id=7751513709
+2025-11-25 21:09:35 | INFO | aiogram.event | Update id=277432313 is handled. Duration 17938 ms by bot id=7751513709
+2025-11-25 21:11:45 | INFO | aiogram.event | Update id=277432314 is handled. Duration 312 ms by bot id=7751513709
+2025-11-25 21:11:49 | INFO | aiogram.event | Update id=277432316 is handled. Duration 1483 ms by bot id=7751513709
+2025-11-25 21:11:49 | INFO | aiogram.event | Update id=277432315 is handled. Duration 3281 ms by bot id=7751513709
+2025-11-25 21:11:51 | INFO | aiogram.event | Update id=277432317 is handled. Duration 313 ms by bot id=7751513709
+2025-11-25 21:11:54 | INFO | aiogram.event | Update id=277432318 is handled. Duration 407 ms by bot id=7751513709
+2025-11-25 21:11:57 | INFO | aiogram.event | Update id=277432319 is handled. Duration 375 ms by bot id=7751513709
+2025-11-25 21:11:58 | INFO | aiogram.event | Update id=277432320 is handled. Duration 343 ms by bot id=7751513709
+2025-11-25 21:12:02 | INFO | aiogram.event | Update id=277432321 is handled. Duration 328 ms by bot id=7751513709
+2025-11-25 21:12:05 | INFO | aiogram.event | Update id=277432322 is handled. Duration 344 ms by bot id=7751513709
+2025-11-25 21:12:08 | INFO | aiogram.event | Update id=277432324 is handled. Duration 375 ms by bot id=7751513709
+2025-11-25 21:12:08 | INFO | aiogram.event | Update id=277432323 is handled. Duration 2578 ms by bot id=7751513709
+2025-11-25 21:12:34 | INFO | aiogram.dispatcher | Polling stopped
+2025-11-25 21:12:34 | ERROR | aiogram.dispatcher | Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-11-25 21:12:34 | WARNING | aiogram.dispatcher | Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7751513709)
+2025-11-25 21:12:34 | INFO | aiogram.dispatcher | Polling stopped for bot @darslik_29_01_2025_bot id=7751513709 - 'Darslik_29_01_2025'

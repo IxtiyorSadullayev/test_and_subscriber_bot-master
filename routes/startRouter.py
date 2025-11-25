@@ -18,6 +18,7 @@ async def startCommand(message: Message, state: FSMContext):
     # print(message.text)
     # print(message.text.split(" ")[1])
     # await message.answer('Hello')
+    await state.clear()
     tg_id = message.from_user.id 
     user = getUserByTg_id(tg_id=tg_id)
     
@@ -92,7 +93,8 @@ async def userRegister_tekshiruv(query: CallbackQuery, state: FSMContext):
     
 
 @startRouter.message(F.text.startswith("admin_1234"))
-async def setadmin(message: Message):
+async def setadmin(message: Message, state: FSMContext):
+    await state.clear()
     tg_id = message.from_user.id
     user = updateUserByTg_id_role(tg_id=tg_id, role="ADMIN")
     if not user:
