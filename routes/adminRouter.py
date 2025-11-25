@@ -138,7 +138,7 @@ async def adminTanlov_tekshiruv(query: CallbackQuery, state: FSMContext):
 @admin.message(F.text=="🛠 *Test yaratish*")
 async def adminCreate_test(message: Message, state: FSMContext):
     await state.clear()
-    await message.answer("Yaratmoqchi bo'lgan testingizni faylini yuboring: ")
+    await message.answer("📤 Yaratmoqchi bo'lgan testingizni faylini yuboring:")
     await state.set_state(TestCreate.test_file)
     # admin tomonidan qandayda bir tanlov yaratish uchun imkoniyat taqdim qilish 
     # unga foydalanuvchi id raqamini ham qo'shib qo'yish imkoniyatini taqdim qilishimiz mumkin bo'ladi
@@ -151,13 +151,14 @@ async def adminTest_test_file(message: Message, state: FSMContext):
         await message.answer("Qaysi bo'lim haqida ma'lumot olmoqchisiz ?", reply_markup=adminHisobot)
         return
     if not message.document:
-        await message.answer("Yaratmoqchi bo'lgan testingizni faylini yuboring: ")
+        await message.answer("(📁 fayl, 🔢 testlar soni, ✅ test javoblari, 🎯 tekshiruv)")
         await state.set_state(TestCreate.test_file)
         return
     test_file=message.document.file_id
     await state.update_data(test_file=test_file)
     await state.update_data(file_type=message.document.file_name.split(".")[-1])
-    await message.answer("Yaratmoqchi bo'lgan testingizda nechta savol mavjud?")
+    await message.answer("""📝 Yaratmoqchi bo'lgan testingizda nechta savol mavjud?
+                         🔢 Savollar soni: ______""")
     await state.set_state(TestCreate.count_questions)
 
     # test faylini yuklash jarayoni
@@ -167,7 +168,8 @@ async def adminTest_test_file(message: Message, state: FSMContext):
 async def adminTest_count_questions(message: Message, state: FSMContext):
     count_test=message.text
     if len(count_test) ==0 or not count_test.isdigit():
-        await message.answer("Yaratmoqchi bo'lgan testingizda nechta savol mavjud?")
+        await message.answer("""📝 Yaratmoqchi bo'lgan testingizda nechta savol mavjud?
+                         🔢 Savollar soni: ______""")
         state.set_state(TestCreate.count_questions)
         return
     await state.update_data(count_questions=count_test)
@@ -208,11 +210,11 @@ async def adminTest_answers(message: Message, state: FSMContext):
     # test javoblarini kiritish jarayoni.
     await state.update_data(answers = ",".join(javob_korinishi))
     test_file=data.get("test_file")
-    print("data data data", data.get("update"))
     if data.get("update"):
         test= getTestById(test_id=int(data.get("update").split("_")[1]))
         test_file=test.get("test_file")
-    await message.answer("Javoblaringizni qabul qildik. Ma'lumotlarinigizni tekshirib ko'ring")
+    await message.answer("""✅ Javoblaringizni qabul qildik. 
+📋 Ma'lumotlarinigizni tekshirib ko'ring""")
     text_content=""
     text_content+="Test savollar soni: "+count_questions + "\n"
     text_content+="Javoblar: " + ", ".join(javob_korinishi) + "\n"
@@ -241,7 +243,6 @@ async def adminTest_tekshiruv(query: CallbackQuery, state: FSMContext):
                 await state.clear()                                                         
                 return
         await state.clear()   
-        print("Bu tarafi ishlamasligi kerak update da")
         testholati = createTest(test_file=test_file, file_type=file_type, count_question=int(count_question), answers=answers, published="JARAYONDA")
         await query.message.delete()
         if testholati:
@@ -489,7 +490,14 @@ async def tanlovholatiTanlov(query: CallbackQuery):
 @admin.message(F.text=="ℹ️ *Bot haqida ma’lumot*")
 async def aboutbot(message: Message, state: FSMContext):
     await state.clear()
-    await message.answer("Bu bot test yaratuvchilar va uni bajaruvchilar uchun ishlangan bepul bot hisoblanadi. Ushbu botni admin tomonidan boshqariladi va barchaga birdek foydalanish uchun yaratildi")
+    await message.answer("""🏆 BIZNING AFZALLIKLARIMIZ:
+┌─────────────────────────────────────┐
+│ ✅ Test yaratish imkoniyati         │
+│ ✅ Test bajarish imkoniyati         │
+│ ✅ Mutlaqo bepul                    │
+│ ✅ Professional admin boshqaruvi    │
+│ ✅ Barcha foydalanuvchilar uchun    │
+└─────────────────────────────────────┘""")
 
 
 # db dagi barcha datalarni olish

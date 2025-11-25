@@ -25,12 +25,10 @@ user = Router()
 async def taklifHavolasi(message: Message, state: FSMContext):
     await state.clear()
     tg_id = message.from_user.id
-    text = f"""Sizning taklif havolangiz:
-    "Ushbu taklif havolani boshqalarga yuborishingiz mumkin: 
-    https://t.me/darslik1202_bot?start={tg_id}"
-
-    Bu havolani guruh va chatlarda tarqating va ballarga sazovor bo'ling
-    """
+    text = f"""💰 TAKLIF QILISH = BALLAR!
+🔗 Havola: https://t.me/darslik1202_bot?start={tg_id}
+📤 Guruh va chatlarda ulashing
+🎁 Har bir taklif uchun ball oling"""
     
     # Matnni yuborish
     await message.answer(text=text)
@@ -171,11 +169,11 @@ async def mynatijalar(message: Message, state: FSMContext):
     tg_id = message.from_user.id
     testlar = getUserTesttoUserTest(tg_id=tg_id)
     text = ""
-    text+=f"Hurmatli bot foydalanuvchisi. Siz jami {len(testlar)} ta testda ishtirok etgansiz.\n"
+    text = "📊 Hurmatli bot foydalanuvchisi!\n\n"
+    text += f"🎯 Siz jami {len(testlar)} ta testda ishtirok etgansiz.\n\n"
     for i in range(len(testlar)):
         natija = testlar[i].get("score")/len(testlar[i].get("answers").split(","))
-        # text += f"{i+1}. Test id:{testlar[i].get("test_id")} -> {f"{(natija*100):.2f}"}% ko'rsatgich.\n"
-        text += f"{i+1}. Test id:{testlar[i].get('test_id')} -> {((natija*100)):.2f}% ko'rsatgich.\n"
+        text += f"🔹 {i+1}. Test ID: {testlar[i].get('test_id')} → {natija*100:.2f}% ko'rsatgich\n"
 
     await message.answer(text=text)
 
@@ -185,6 +183,7 @@ async def yigilganodamlarsoni(message: Message, state: FSMContext):
     tg_id = message.from_user.id
     data = getForUserData(tg_id=tg_id)
     if not data or data==0:
-        await message.answer("Hozircha sizda hech qanday taklif qilgan insonlaringiz mavjud emas.")
+        await message.answer("📊 Hozircha sizda hech qanday taklif qilgan insonlaringiz mavjud emas.")
         return
-    await message.answer(f"Siz jami {data} ta ishtirok yig'dingiz.")
+    await message.answer(f"""✅ Muvaffaqiyat: {data} ishtirok
+📊 Statistika yangilandi""")
